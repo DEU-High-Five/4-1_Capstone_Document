@@ -1,0 +1,349 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+
+@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+#app{
+  background-color: white;
+  font-family: 'NanumSquare', sans-serif;
+  min-height: 100%;
+}
+
+.bold{
+  font-weight: 700;
+}
+
+.main_color{
+  color: #a90b0b;
+}
+
+.main_color_border{
+  color: #a90b0b;
+  border-color: #a90b0b;
+}
+
+.c-app{
+  background-color: white;
+}
+body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
+
+.view_tag{
+  padding: 3px 5px;
+  margin-right: 15px;
+  border-radius: 5px;
+  background-color: #F7E600;
+  font-size: 20px;
+  box-shadow: 3px 3px 7px #eee;
+}
+
+#circle {
+  border-radius: 50%;
+  background-size: cover;
+  box-shadow: 3px 3px 7px #CCC;
+}
+
+#main_register {
+  height: 96%;
+  margin: 0;
+  overflow: hidden;
+  touch-action: none;
+}
+#register_body{
+  min-height: 96vh;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#description_zone_reg{
+  text-align: left;
+  display: inline-flex;
+}
+
+.sub_title{
+  white-space: normal;
+  line-height: 1.2;
+  height: 2.4em;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+#title_text{
+  width: 50%;
+  margin: 5px 10px;
+}
+
+.text_ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.disable_padding{
+  padding:0;
+}
+
+#register_footer{
+  height: 12%;
+  background-color: white;
+  border-top: none;
+}
+
+#main_login {
+  height: 100vh;
+  margin: 0;
+}
+#main_register2 {
+  height: 100vh;
+  margin-bottom: 0px;
+}
+#login_body{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#description_zone{
+  height: 60%;
+  padding-top: 10vh;
+  text-align: center;
+}
+#reg_final_description_zone{
+  height: 80vh;
+  text-align: center;
+}
+#descript_text_login{
+  margin-top: 20px;
+}
+#descript_text_final{
+  margin-top: 30%;
+}
+
+.category_card{
+  height: 120px;
+  color: #f7f6ee;
+}
+
+.my_pages_card{
+  height: 70px;
+  color: #f7f6ee;
+}
+
+.title_text_color{
+  color: #f7f6ee;
+}
+
+#card_title_compact{
+  overflow: hidden;
+  font-weight: 800;
+  width:80%;
+  text-shadow: 3px 3px 7px #555555;
+}
+
+#card_title{
+  overflow: hidden;
+  font-weight: 800;
+  width:80%;
+  text-shadow: 3px 3px 7px #555555;
+  white-space: normal;
+  line-height: 1.2;
+  height: 2.4em;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+
+.color_my_major{
+  background-color: #4E72B8;
+}
+
+.color_my_univ{
+  background-color: #A276AE;
+}
+
+.color_friends{
+  background-color: #BC8F8F;
+}
+
+.color_club{
+  background-color: #E9A41B;
+}
+
+// 카테고리 별 카드 클래스
+.my_major_card{
+  background-color: #4E72B8; 
+  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
+  border-color: #4E72B8
+}
+
+.my_univ_card{
+  background-color: #A276AE; 
+  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
+  border-color: #A276AE
+}
+
+.friends_card{
+  background-color: #BC8F8F; 
+  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
+  border-color: #BC8F8F
+}
+
+.club_card{
+  background-color: #E9A41B; 
+  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
+  border-color: #E9A41B
+}
+
+@media (max-height: 480px){
+  #descript_text_final{
+    margin-top: 10%;
+  }
+}
+
+
+@media (max-height: 560px){
+  #footer{
+    position: absolute;
+    top:-300px
+  }
+}
+
+.font_bold{
+  font-weight: 800;
+}
+.warning_text{
+  color: red !important;
+  font-size: 13px;
+}
+
+.light_shadow{
+  box-shadow: 3px 3px 7px #EEE
+}
+
+.light_dark_shadow{
+  box-shadow: 3px 3px 7px #CCC
+}
+
+.card-header:not(.content-center) > .c-icon:first-child {
+  margin-right: 0.1rem;
+  margin-top: 0.1rem;
+  vertical-align: top;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 1.2rem;
+}
+
+#RegHeader{
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+  /* 전환효과 (Slide) */ 
+  .next-leave-to { 
+    animation: leaveToLeft 500ms both cubic-bezier(0.165, 0.84, 0.44, 1); 
+    z-index: 0; 
+  } 
+  .next-enter-to { 
+    animation: enterFromRight 500ms both cubic-bezier(0.165, 0.84, 0.44, 1); 
+    z-index: 1; 
+  } 
+  .prev-leave-to { 
+    animation: leaveToRight 500ms both cubic-bezier(0.165, 0.84, 0.44, 1); 
+    z-index: 1; 
+  } 
+  .prev-enter-to { 
+    animation: enterFromLeft 500ms both cubic-bezier(0.165, 0.84, 0.44, 1); 
+    z-index: 0; 
+  } 
+  @keyframes leaveToLeft { 
+    from { transform: translateX(0); } 
+    to { transform: translateX(-25%); filter: brightness(0.5); } 
+  } 
+  @keyframes enterFromLeft { 
+    from { transform: translateX(-25%); filter: brightness(0.5); } 
+    to { transform: translateX(0); } 
+  } 
+  @keyframes leaveToRight { 
+    from { transform: translateX(0); } 
+    to { transform: translateX(100%); } 
+  } 
+  @keyframes enterFromRight { 
+    from { transform: translateX(100%); } 
+    to { transform: translateX(0); } 
+  }
+
+  // /* 전환효과 (Fade) */ 
+  // .fade-enter-active, .fade-leave-active { 
+  //   transition: opacity .8s; 
+  // } 
+  // .fade-enter, .fade-leave-to { opacity: 0; }
+
+  .fade-enter {
+    opacity: 0;
+  }
+  
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s ease-out;
+  }
+  
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  .none-enter {
+    opacity: 0;
+  }
+  
+  .none-enter-active,
+  .none-leave-active {
+    opacity: 0;
+  }
+  
+  .none-leave-to {
+    opacity: 0;
+  }
+
+  .slide-fade-enter {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  
+  .slide-fade-enter-active,
+  .slide-fade-leave-active {
+    transition: all 0.4s ease;
+  }
+  
+  .slide-fade-leave-to {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+
+
+
+  .slide-rev-fade-enter {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  
+  .slide-rev-fade-enter-active,
+  .slide-rev-fade-leave-active {
+    transition: all 0.4s ease;
+  }
+  
+  .slide-rev-fade-leave-to {
+    transform: translateX(10px);
+    opacity: 0;
+  }

@@ -6,15 +6,21 @@
             <CCard class="p-4" id="main_login">
               <div id="reg_final_description_zone">
                 <div id="descript_text_final">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" height="100"><path fill="rgb(0,195,128)" d="M426.072,86.928A238.75,238.75,0,0,0,88.428,424.572,238.75,238.75,0,0,0,426.072,86.928ZM257.25,462.5c-114,0-206.75-92.748-206.75-206.75S143.248,49,257.25,49,464,141.748,464,255.75,371.252,462.5,257.25,462.5Z" class="ci-primary"></path><polygon fill="rgb(0,195,128)" points="221.27 305.808 147.857 232.396 125.23 255.023 221.27 351.063 388.77 183.564 366.142 160.937 221.27 305.808" class="ci-primary"></polygon></svg>
+                  <div id="sec1" data-aos="fade-up-right" data-aos-duration="800" data-aos-once="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" height="110"><path fill="#A90B0B" d="M474.444,19.857a20.336,20.336,0,0,0-21.592-2.781L33.737,213.8v38.066l176.037,70.414L322.69,496h38.074l120.3-455.4A20.342,20.342,0,0,0,474.444,19.857ZM337.257,459.693,240.2,310.37,389.553,146.788l-23.631-21.576L215.4,290.069,70.257,232.012,443.7,56.72Z" class="ci-primary"></path></svg>
+                  </div>
                   <br><br>
-                  <h1>회원가입이<br>완료되었습니다.</h1>
-                  <br>
-                  <a v-bind:style="{fontSize: ftsize() +'px'}">재학 인증에 소요되는 시간은 제출된 서류에<br>따라 달라질 수 있으며, 최대 2~3일 소요됩니다.</a>
+                  <div id="sec1" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true" data-aos-delay="200">
+                    <h1 class="bold" style="font-size:35px">반가워요!</h1>
+                  </div>
+                  <div id="sec1" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true" data-aos-delay="300">
+                    <br>
+                    <a v-bind:style="{fontSize: ftsize() +'px'}">회원가입이 성공적으로<br>완료되었습니다.</a>
+                  </div>
                 </div>
               </div>
               <CCardBody>
-                <CButton size="lg" color="success" block @click="gotoLogin">로그인 페이지로 이동</CButton>
+                <CButton size="lg" color="primary" block @click="gotoLogin">로그인 페이지로 이동</CButton>
               </CCardBody>
             </CCard>
         </CCol>
@@ -37,9 +43,9 @@ export default {
     methods: { 
       ftsize(){
         if(this.windowWidth > 320)
-          return 14
+          return 25
         else
-          return 7
+          return 15
       },
       gotoRegister(){
         this.$router.replace({ path: '/pages/register1' })

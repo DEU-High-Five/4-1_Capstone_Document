@@ -2,14 +2,15 @@
   <div class="c-app flex-row align-items-center">
     <CWrapper>
       <CHeader fixed light style="padding-left: 20px; padding-top: 10px;">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" height="42" @click="primaryModal = true">
+        <div @click="primaryModal = true">
+           <CIcon size="xl" class="c-sidebar-nav-icon ml-1" style="margin-top: 8px; color: #A90B0B" :content="$options.icons.returnIcon"/>
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" >
             <polygon fill="var(--ci-primary-color, currentColor)" points="497.333 239.999 80.092 239.999 176.087 144.004 153.46 121.377 18.837 256 153.46 390.623 176.087 367.996 80.09 271.999 497.333 271.999 497.333 239.999" class="ci-primary">
             </polygon>
-         </svg>
+         </svg> -->
         </div>
         <div id="title_text">
-          <h2 style="font-weight:800">회원가입</h2>
+          <h2 style="font-weight:800; color: #A90B0B">회원가입</h2>
         </div>
       </CHeader>
       <div class="c-body">
@@ -55,7 +56,7 @@
                   <CInput
                     type="text"
                     label="이름"
-                    valid-feedback="이름이 입력되었습니다."
+                    valid-feedback="사용할 수 있는 이름 형식입니다."
                     invalid-feedback="이름을 입력해주세요."
                     value=""
                     v-model="reg_name"
@@ -105,7 +106,7 @@
                     </CCol>
                   </CRow>
                   <p v-if="this.warning_phone" style="margin-top: -0.75rem; color:#e55353; font-size:80%">연락처를 입력해주세요.</p>
-                  <p v-if="this.isPhoneInserted" style="margin-top: -0.75rem; color:#2eb85c; font-size:80%">좋아요!</p>
+                  <p v-if="this.isPhoneInserted" style="margin-top: -0.75rem; color:#2eb85c; font-size:80%">좋아요! 이제 다 왔어요!</p>
                   <!-- <CSelect
                     @change="question_select($event)"
                     name="select_question"
@@ -235,9 +236,13 @@
 </style>
 
 <script>
+import { cilChevronLeft } from '@coreui/icons'
 const bcrypt = require('bcryptjs')
 export default {
   name: 'Register',
+  icons: {
+    returnIcon: cilChevronLeft
+  },
   data() { 
     return { 
       asas: '',

@@ -544,6 +544,7 @@ function configRoutes () {
           path: 'register',
           name: 'Register',
           component: Register,
+          meta: { page: 2 },
         },
         {
           path: 'register1',

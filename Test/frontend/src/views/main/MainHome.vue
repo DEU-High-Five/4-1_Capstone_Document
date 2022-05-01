@@ -6,6 +6,7 @@
     </div>
     <div v-else>
       <CContainer>
+        <div id="sec1" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
         <CRow>
           <h5 class="main_color" style="float:left;font-weight:800;font-size:20px; margin-left:10px;">나의 관리 기관</h5>
         </CRow>
@@ -35,8 +36,9 @@
             </CCard>
           </CCol>
         </CRow>
+        </div>
 
-
+        <div id="sec1" data-aos="fade-up" data-aos-duration="500" data-aos-once="true" data-aos-delay="100">
         <CRow class="mt-3">
           <h5 class="main_color" style="float:left;font-weight:800;font-size:20px; margin-left:10px;">나의 소속 기관</h5>
         </CRow>
@@ -66,6 +68,7 @@
             </CCard>
           </CCol>
         </CRow>
+        </div>
       <!-- <CModal
         :closeOnBackdrop="false"
         title="Modal_3"

@@ -7,7 +7,7 @@
     @update:show="(value) => $store.commit('set', ['sidebarShow', value])"
   >
     <CSidebarHeader style="background-color: white;">
-      <img src="../assets/images/logo4.svg" style="width:100%; height:100%;">
+      <img src="../assets/images/banner.svg" style="width:60%; height:90%;">
     </CSidebarHeader>
     <div style="padding: 0.8rem 1.2rem 0 1.2rem; border-top:solid 1px #ccc; border-bottom:solid 1px #ccc; text-align:center; background-color: #efefef">
       <div id="circle" style="margin: 0 auto"/>

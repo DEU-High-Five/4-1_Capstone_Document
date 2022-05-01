@@ -27,7 +27,7 @@
             </CCard>
           </CCol>
           <CCol col="6" class="pl-2 pr-2">
-            <CCard class="main_color_background" @click="gotoViewPost(myUnivData.num)">
+            <CCard class="main_color_background" @click="gotoGenNewGroup()">
               <CCardBody class="category_card" style="padding:1rem">
                 
                   <CIcon size="custom" width="50" style="margin: 25px auto; color: #df6f6f; display:table;" :content="$options.icons.plusIcon"/>
@@ -59,7 +59,7 @@
             </CCard>
           </CCol>
           <CCol col="6" class="pl-2 pr-2">
-            <CCard class="main_color_background" @click="gotoViewPost(myUnivData.num)">
+            <CCard class="main_color_background" @click="gotoJoinGroup()">
               <CCardBody class="category_card" style="padding:1rem">
                 
                   <CIcon size="custom" width="50" style="margin: 25px auto; color: #df6f6f; display:table;" :content="$options.icons.plusIcon"/>
@@ -230,6 +230,13 @@ export default {
         this.$router.push({ name: 'CategoryView', query: {data : JSON.stringify({category: value})} })
         //this.$router.push({ name: 'CategoryView' })
       }
+    },
+
+    gotoGenNewGroup(){
+      this.$router.push({ name: 'GenNewGroup' })
+    },
+    gotoJoinGroup(){
+      this.$router.push({ name: 'JoinGroup' })
     },
     gotoViewPost(value){
       if (value != ''){

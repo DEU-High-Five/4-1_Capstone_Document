@@ -14,6 +14,13 @@ a{
   color: black;
 }
 
+.form-control:focus {
+  border-color: #777;
+  -webkit-box-shadow: 0 0 0 0.2rem rgb(180 180 180 / 25%);
+  box-shadow: 0 0 0 0.2rem rgb(180 180 180 / 25%);
+
+}
+
 #app{
   background-color: white;
   font-family: 'NanumSquare', sans-serif;
@@ -186,48 +193,6 @@ body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-}
-
-
-.color_my_major{
-  background-color: #4E72B8;
-}
-
-.color_my_univ{
-  background-color: #A276AE;
-}
-
-.color_friends{
-  background-color: #BC8F8F;
-}
-
-.color_club{
-  background-color: #E9A41B;
-}
-
-// 카테고리 별 카드 클래스
-.my_major_card{
-  background-color: #4E72B8; 
-  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
-  border-color: #4E72B8
-}
-
-.my_univ_card{
-  background-color: #A276AE; 
-  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
-  border-color: #A276AE
-}
-
-.friends_card{
-  background-color: #BC8F8F; 
-  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
-  border-color: #BC8F8F
-}
-
-.club_card{
-  background-color: #E9A41B; 
-  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
-  border-color: #E9A41B
 }
 
 @media (max-height: 480px){

@@ -62,7 +62,9 @@ const RegisterFailed = () => import('@/views/pages/RegisterFailed')
 
 // Views - Main
 const MainHome = () => import('@/views/main/MainHome')
-
+const GenNewGroup = () => import('@/views/main/GenNewGroup')
+const GenGroupSuccess = () => import('@/views/main/GenGroupSuccess')
+const JoinGroup = () => import('@/views/main/JoinGroup')
 
 
 
@@ -155,6 +157,27 @@ function configRoutes () {
               name: 'MainHome',
               component: MainHome,
               meta: { text: "main_home" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/GenNewGroup',
+              name: 'GenNewGroup',
+              component: GenNewGroup,
+              meta: { text: "gen_new_group" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/GenGroupSuccess',
+              name: 'GenGroupSuccess',
+              component: GenGroupSuccess,
+              meta: { text: "gen_group_success" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/JoinGroup',
+              name: 'JoinGroup',
+              component: JoinGroup,
+              meta: { text: "join_group" },
               //beforeEnter: beforeAuth(true)
             },
           ]

@@ -60,6 +60,12 @@ const Register3 = () => import('@/views/pages/Register3')
 const RegisterSuccess = () => import('@/views/pages/RegisterSuccess')
 const RegisterFailed = () => import('@/views/pages/RegisterFailed')
 
+// Views - Main
+const MainHome = () => import('@/views/main/MainHome')
+
+
+
+
 // Views - Matching
 const MatchingCategory = () => import('@/views/matching/MatchingCategory')
 const CategoryView = () => import('@/views/matching/CategoryView')
@@ -137,6 +143,28 @@ function configRoutes () {
       component: TheContainer,
       children: [
         {
+          path: 'main',
+          redirect: '/main/MainHome',
+          name: 'Main',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: '/main/MainHome',
+              name: 'MainHome',
+              component: MainHome,
+              meta: { text: "main_home" },
+              //beforeEnter: beforeAuth(true)
+            },
+          ]
+        },
+
+
+
+
+
+        {
           path: 'matching',
           redirect: '/matching/MatchingCategory',
           name: 'Matching',
@@ -149,43 +177,43 @@ function configRoutes () {
               name: 'MatchingCategory',
               component: MatchingCategory,
               meta: { text: "matching_home" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/CategoryView',
               name: 'CategoryView',
               component: CategoryView,
               meta: { text: "in_category" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/CategoryMyUniv',
               name: 'CategoryMyUniv',
               component: CategoryMyUniv,
               meta: { text: "in_category" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/ViewPost',
               name: 'ViewPost',
-              component: ViewPost,
+              //component: ViewPost,
               props: true,
               meta: { text: "view_post_" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/NewPost',
               name: 'NewPost',
               component: NewPost,
               meta: { text: "new_post" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/view404',
               name: 'View404',
               component: View404,
               meta: { text: "view_404" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
           ]
         },

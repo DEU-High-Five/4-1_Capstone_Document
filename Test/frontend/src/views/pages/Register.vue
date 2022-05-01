@@ -477,7 +477,6 @@ export default {
           //   if(res.data.success == false){
           //     this.$router.replace({ path: '/pages/register_failed' })
           //   }
-          //   this.$store.commit("registerStore/resetAll")
           // }).catch(function (error){
           //   console.log(error)
           // })

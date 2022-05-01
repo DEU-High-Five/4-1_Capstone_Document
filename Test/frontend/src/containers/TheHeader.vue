@@ -11,12 +11,13 @@
       class="ml-3 d-md-down-none"
       @click="$store.commit('toggleSidebarDesktop')"
     />
+    <img src="../assets/images/banner_black.svg" style="width:132px;height:27px;position:absolute;top:30%;left:34%;">
     <!-- <CBreadcrumbRouter class="border-0 mb-0" id="routers"/> -->
-    <CHeaderNavLink id="page_route" :to="gotoMain" v-text="pageInfo"/>
+    <!-- <CHeaderNavLink id="page_route" :to="gotoMain" v-text="pageInfo"/> -->
     <!-- <CRow id="page_route" v-text="pageInfo"/> -->
-    <transition name="slide-rev-fade">
+    <!-- <transition name="slide-rev-fade">
       <CHeaderNavLink v-if="isNull" id="page_route2" :style="{color: route_color}" to="/matching/CategoryView" v-text="pageRoute"/>
-    </transition>
+    </transition> -->
     <!-- <CRow id="page_route2" v-text="pageRoute"/> -->
     
     <!-- <CHeaderNav class="mr-4">

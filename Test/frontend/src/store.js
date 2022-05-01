@@ -58,32 +58,24 @@ const pageStore = {
 const registerStore = {
   namespaced: true,
   state:{
-    reg_univ: '',
-    reg_major: '',
-    reg_cert_file: '',
     reg_id: '',
     reg_password: '',
-    reg_nickname: '',
-    reg_email: '',
-    reg_verify_question: '',
-    reg_question_answer: '',
-    reg_interested_major: ''
+    reg_name: '',
+    reg_phone: '',
+    reg_privacy_agreement: false,
+    reg_consent_marketing: false
   },
   mutations: {
     set_reg(state, [variable, value]) {
       state[variable] = value
     },
     resetAll: function(state){
-      state.reg_univ = ''
-      state.reg_major = ''
-      state.reg_cert_file = ''
       state.reg_id = ''
       state.reg_password = ''
-      state.reg_nickname = ''
-      state.reg_email = ''
-      state.reg_verify_question = ''
-      state.reg_question_answer = ''
-      state.reg_interested_major = ''
+      state.reg_name = ''
+      state.reg_phone = ''
+      state.reg_privacy_agreement = false
+      state.reg_consent_marketing = false
     },
   //   checkAndSend(){
   //     this.$http.post('/api/users/signUp', {
@@ -128,10 +120,7 @@ const userStore = {
     loginModal: false,
 
     userId: '', 
-    userUniv: '',
-    userMajor: '',
-    userNickname: '',
-    authorized: '',    
+    userName: '', // 전화번호는 백엔드에서 처리    
     token: {
       accessToken: jwt.getToken(),
     },
@@ -141,10 +130,7 @@ const userStore = {
     getUserInfo: function (state) {
       const user = {
         userId: state.userId,
-        univ: state.userUniv,
-        major: state.userMajor,
-        nickname: state.userNickname,
-        authorized: state.authorized
+        userName: state.userName
       }
       return user
     },
@@ -154,11 +140,8 @@ const userStore = {
     getModalState: function (state) {
       return state.loginModal
     },
-    getUserUniv: function (state) {
-      return state.userUniv
-    },
-    getUserMajor: function (state) {
-      return state.userMajor
+    getUserName: function (state) {
+      return state.userName
     },
     getAccessToken: function (state) {
       return state.token.accessToken
@@ -179,10 +162,7 @@ const userStore = {
     },
     login: function (state, payload) { 
       state.userId = payload.userId 
-      state.userUniv = payload.userUniv,
-      state.userMajor = payload.userMajor,
-      state.userNickname = payload.userNickname,
-      state.authorized = payload.authorized, 
+      state.userName = payload.userName,
       state.token.accessToken = payload.accessToken
       state.isAuthenticated = true
       jwt.saveToken(payload.accessToken)
@@ -191,13 +171,10 @@ const userStore = {
       state.token.accessToken = ""
       state.isAuthenticated = false
       state.userId = ''
-      state.userUniv = ''
-      state.userMajor = ''
-      state.userNickname = ''
-      state.authorized = ''
+      state.userName = ''
       jwt.destroyToken()
     },
-    loginCheck: function (state) { 
+    loginCheck: function (state) {
       if (state.token.accessToken) { 
         router.push({ 
           name: 'MatchingCategory' 
@@ -229,33 +206,44 @@ const userStore = {
         userId: payload.userId,
         userPassword: payload.userPassword,
       }
-      return new Promise((resolve, reject) => {
-        http
-          .post("/users/login", params)
-          .then(response => {
-            const { data } = response
-            if(data.success){
-              context.commit("login", {
-                userId: data.user.Id,
-                userUniv: data.user.Univ,
-                userMajor: data.user.Major,
-                userNickname: data.user.Nickname,
-                authorized: data.user.authorized, 
-                accessToken: data.accessToken,
-              })
-              resolve(response)
-              router.replace({ name: 'Matching' })
-            }
-            else{
-              context.commit("setLoginModal", true)
-              resolve(response)
-            }
-          })
-          .catch(error => {
-            reject(error)
-          })
+      // return new Promise((resolve, reject) => {
+      //   http
+      //     .post("/users/login", params)
+      //     .then(response => {
+      //       const { data } = response
+      //       if(data.success){
+      //         context.commit("login", {
+      //           userId: data.user.Id,
+      //           userName: data.user.Name,
+      //           accessToken: data.accessToken,
+      //         })
+      //         resolve(response)
+      //         router.replace({ name: 'Matching' })
+      //       }
+      //       else{
+      //         context.commit("setLoginModal", true)
+      //         resolve(response)
+      //       }
+      //     })
+      //     .catch(error => {
+      //       reject(error)
+      //     })
+      // })
+      router.replace({ 
+        name: 'MainHome' 
       })
     },
+
+
+
+
+
+
+
+
+
+
+    //불필요
     // loginCheck: function (context, payload) {
     //   return new Promise((resolve, reject) => {
     //     http

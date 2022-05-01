@@ -12,7 +12,7 @@
           </CContainer>
         </main>
       </div>
-      <TheFooter/>
+      <!-- <TheFooter/> -->
     </CWrapper>
   </div>
 </template>

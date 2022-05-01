@@ -28,9 +28,16 @@ a{
   color: #a90b0b;
 }
 
+.main_color_background{
+  background-color: #a90b0b;
+  border: solid 2px #a90b0b;
+  border-radius: 8px;
+}
+
 .main_color_border{
   color: #a90b0b;
-  border-color: #a90b0b;
+  border: solid 2px #a90b0b;
+  border-radius: 8px;
 }
 
 .c-app{
@@ -129,7 +136,7 @@ body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
 }
 
 .category_card{
-  height: 120px;
+  height: 140px;
   color: #f7f6ee;
 }
 
@@ -142,18 +149,19 @@ body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
   color: #f7f6ee;
 }
 
-#card_title_compact{
+.card_title_compact{
   overflow: hidden;
   font-weight: 800;
   width:80%;
   text-shadow: 3px 3px 7px #555555;
 }
 
-#card_title{
+.card_title{
+  color:black;
+  font-size: 18px;
   overflow: hidden;
   font-weight: 800;
-  width:80%;
-  text-shadow: 3px 3px 7px #555555;
+  width:100%;
   white-space: normal;
   line-height: 1.2;
   height: 2.4em;
@@ -161,6 +169,22 @@ body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
   word-wrap: break-word;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.card_sub_title{
+  color:black;
+  font-size: 15px;
+  overflow: hidden;
+  font-weight: 500;
+  width:100%;
+  white-space: normal;
+  line-height: 1.2;
+  height: 3.6em;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 

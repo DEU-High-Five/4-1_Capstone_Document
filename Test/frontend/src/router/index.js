@@ -65,6 +65,8 @@ const MainHome = () => import('@/views/main/MainHome')
 const GenNewGroup = () => import('@/views/main/GenNewGroup')
 const GenGroupSuccess = () => import('@/views/main/GenGroupSuccess')
 const JoinGroup = () => import('@/views/main/JoinGroup')
+const CheckGroup = () => import('@/views/main/CheckGroup')
+const JoinGroupSuccess = () => import('@/views/main/JoinGroupSuccess')
 
 
 
@@ -178,6 +180,20 @@ function configRoutes () {
               name: 'JoinGroup',
               component: JoinGroup,
               meta: { text: "join_group" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/CheckGroup',
+              name: 'CheckGroup',
+              component: CheckGroup,
+              meta: { text: "check_group" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/JoinGroupSuccess',
+              name: 'JoinGroupSuccess',
+              component: JoinGroupSuccess,
+              meta: { text: "join_group_success" },
               //beforeEnter: beforeAuth(true)
             },
           ]

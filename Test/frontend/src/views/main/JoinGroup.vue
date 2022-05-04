@@ -10,32 +10,42 @@
             label="사용자 이름"
             v-model="userName"
             disabled
-          >
-          </CInput>
-          <CInput id="noWarning"
-            type="text"
-            label="기관 코드"
-            description="가입할 기관의 코드 8자리를 입력해주세요."
-            value=""
-            v-model="groupName"
-            autocomplete="off"
-            maxlength="8"
-            :is-valid="show_warning_group_name"
-            invalid-feedback="올바른 형식이 아닙니다."
-          >
-          </CInput>
+          />
+          <label>기관 코드</label>
+            <CRow class="form-group">
+              <CCol col="4" class="pr-1">
+                <CInput 
+                  class="mb-0" 
+                  oninput="this.value = this.value.replace(/[^0-9a-f.]/g, '').replace(/(\..*)\./g, '$1');" 
+                  maxlength='4'
+                  v-model="groupCode[0]"
+                  :is-valid="show_warning_group_code" 
+                />
+              </CCol>
+              <span style="padding: 5px 1% 0 1%">-</span>
+              <CCol col="4" class="pl-1">
+                <CInput 
+                  class="mb-0" 
+                  oninput="this.value = this.value.replace(/[^0-9a-f.]/g, '').replace(/(\..*)\./g, '$1');" 
+                  maxlength='4'
+                  v-model="groupCode[1]"
+                  :is-valid="show_warning_group_code"
+                />
+              </CCol>
+            </CRow>
+            <p v-if="this.warning_group_code" style="margin-top: -0.75rem; color:#e55353; font-size:80%">올바른 형식이 아닙니다.</p>
+            <p style="margin-top: -0.75rem; color:#768192; font-size:80%">가입할 기관의 코드 8자리를 입력해주세요.</p>
           <CInput id="noWarning"
             type="text"
             label="직급/부서"
             description="본인의 직급 혹은 부서를 입력해주세요.(최대 20자)"
             value=""
-            v-model="groupName"
+            v-model="userDescription"
             autocomplete="off"
             maxlength="20"
-            :is-valid="show_warning_group_name"
+            :is-valid="show_warning_user_desc"
             invalid-feedback="직급/부서가 입력되지 않았습니다."
-          >
-          </CInput>
+          />
         </CForm>
       <CButton size="lg" color="primary" style="margin:30% auto 0 auto; width:95%;" block @click="upload_checker">다음</CButton>
     <CModal
@@ -57,6 +67,9 @@
       </template>
     </CModal>
     </CContainer>
+    <div class="btn-floating" @click="gotoMain">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" height="30"><path fill="var(--ci-primary-color, currentColor)" d="M469.666,216.45,271.078,33.749a34,34,0,0,0-47.062.98L41.373,217.373,32,226.745V496H208V328h96V496H480V225.958ZM248.038,56.771c.282,0,.108.061-.013.18C247.9,56.832,247.756,56.771,248.038,56.771ZM448,464H336V328a32,32,0,0,0-32-32H208a32,32,0,0,0-32,32V464H64V240L248.038,57.356c.013-.012.014-.023.024-.035L448,240Z" class="ci-primary"></path></svg>
+    </div>
   </div>
 </template>
 
@@ -80,12 +93,12 @@ export default {
   data () {
     return {
       userName: "정성주",
-      groupCode: "",
+      groupCode: ['', ''],
       userDescription: "",
       uploadModal: false,
 
-      warning_group_name: false,
-      warning_group_desc: false,
+      warning_group_code: false,
+      warning_user_desc: false,
     }
   },
   created() {
@@ -104,21 +117,21 @@ export default {
       return this.uploadModal = true;
     },
     upload_checker(){
-      // 기관 이름
-      if(this.groupName == '' || this.groupName.length < 1 || this.groupName.length > 45){
-        this.warning_group_name = true;
+      // 기관 코드
+      if(this.groupCode[0].length != 4 || this.groupCode[1].length != 4){
+        this.warning_group_code = true;
       }else{
-        this.warning_group_name = false;
+        this.warning_group_code = false;
       }
 
-      // 내용
-      if(this.groupDescription == '' || this.groupDescription.length < 1 || this.groupDescription.length > 200){
-        this.warning_group_desc = true;
+      // 직급/부서
+      if(this.userDescription == '' || this.userDescription.length < 1 || this.userDescription.length > 20){
+        this.warning_user_desc = true;
       }else{
-        this.warning_group_desc = false;
+        this.warning_user_desc = false;
       }
 
-      if(this.warning_group_name || this.warning_group_desc){
+      if(this.warning_group_code || this.warning_user_desc){
         return false;
       }
       this.uploadModal = true;
@@ -135,10 +148,8 @@ export default {
       return '';
     },
     check_and_send(){
-      let html_content = this.groupDescription.replaceAll(/(\n|\r\n)/g, "<br>");
-
       //임시
-      return this.$router.replace({ name: 'GenGroupSuccess', query: {data : JSON.stringify({groupCode:"1234-5678"})} })
+      return this.$router.replace({ name: 'CheckGroup', query: {data : JSON.stringify({groupCode:this.groupCode})} })
 
       http.post('/matching/upload', {
         userId: "",
@@ -157,8 +168,8 @@ export default {
         console.log(error)
       })
     },
-    gotoLogin(){
-        this.$router.push({ path: '/pages/login' })
+    gotoMain(){
+        this.$router.push({ name: 'MainHome' })
     },
   }
 }

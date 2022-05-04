@@ -16,11 +16,11 @@
     </div>
       <!-- <CRenderFunction flat :content-to-render="$options.nav"/> -->
         <CSidebarNav>
-          <CSidebarNavTitle>매칭</CSidebarNavTitle>
+          <CSidebarNavTitle>메인</CSidebarNavTitle>
           <CSidebarNavItem 
-            name="매칭 홈" 
+            name="홈 화면" 
             :icon="{content: $options.icons.homeIcon}"
-            to='/matching/MatchingCategory'
+            to='/main/MainHome'
           />
 
           <CSidebarNavTitle>마이 페이지</CSidebarNavTitle>
@@ -30,6 +30,11 @@
             to='/myPages/MyAccount'
           />
           <CSidebarNavItem 
+            name="설정" 
+            icon='cil-settings'
+            to='/myPages/MyAccount'
+          />
+          <!-- <CSidebarNavItem 
             name="내 매칭글" 
             icon='cil-pencil'
             to='/myPages/MyPostList'
@@ -46,7 +51,7 @@
               name="보낸 신청 목록" 
               to='/myPages/MyApplyList'
             />
-          </CSidebarNavDropdown>
+          </CSidebarNavDropdown> -->
 
           <CSidebarNavTitle>계정</CSidebarNavTitle>
           <div style="width:100%;padding: 0.8445rem 1.2rem" @click="logout()">

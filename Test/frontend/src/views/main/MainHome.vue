@@ -30,7 +30,7 @@
             <CCard class="main_color_background" @click="gotoGenNewGroup()">
               <CCardBody class="category_card" style="padding:1rem">
                 
-                  <CIcon size="custom" width="50" style="margin: 25px auto; color: #df6f6f; display:table;" :content="$options.icons.plusIcon"/>
+                  <CIcon size="custom" width="50" style="margin: 28%; color: #df6f6f; display:table;" :content="$options.icons.plusIcon"/>
                 
               </CCardBody>
             </CCard>
@@ -62,7 +62,7 @@
             <CCard class="main_color_background" @click="gotoJoinGroup()">
               <CCardBody class="category_card" style="padding:1rem">
                 
-                  <CIcon size="custom" width="50" style="margin: 25px auto; color: #df6f6f; display:table;" :content="$options.icons.plusIcon"/>
+                  <CIcon size="custom" width="50" style="margin: 28%; color: #df6f6f; display:table;" :content="$options.icons.plusIcon"/>
                 
               </CCardBody>
             </CCard>
@@ -115,8 +115,8 @@ export default {
     return {
       myManagement: [
         {
-          title: "동의대학교 응용소프트웨어공학",
-          subtitle: "응용소프트웨어공학과의 물품 관리를 하고 있는 그룹입니다."
+          title: "응용소프트웨어 실습실 #1",
+          subtitle: "동의대 응용소프트웨어공학 실습준비실입니다."
         },
         {
           title: "(주) 동의 컴퍼니 웹 개발 부서",
@@ -125,16 +125,16 @@ export default {
       ],
       myAffiliation: [
         {
-          title: "Let's Go! AI 인공지능 학과",
-          subtitle: "동의대 인공지능 학과 학과동아리 Deep입니다."
+          title: "AI 인공지능학과 실습준비실",
+          subtitle: "동의대 인공지능 실습 준비실입니다."
         },
         {
-          title: "재즈를 사랑하는 모임 재사모",
+          title: "재즈사랑모임 악기 보관실",
           subtitle: "재즈와 리듬을 사랑하는 사람들 양산의 자랑 재사모"
         },
         {
           title: "서울시 청년 인재 양성 프로젝트",
-          subtitle: "서울 SW 청년 인재 양성을 위한 프로젝트 그룹입니다. 대여.."
+          subtitle: "서울 SW 청년 인재 양성을 위한 프로젝트 그룹입니다."
         },
       ]
     }

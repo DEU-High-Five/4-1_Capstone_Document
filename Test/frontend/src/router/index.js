@@ -67,6 +67,7 @@ const GenGroupSuccess = () => import('@/views/main/GenGroupSuccess')
 const JoinGroup = () => import('@/views/main/JoinGroup')
 const CheckGroup = () => import('@/views/main/CheckGroup')
 const JoinGroupSuccess = () => import('@/views/main/JoinGroupSuccess')
+const CameraTest = () => import('@/views/main/CameraTest')
 
 
 
@@ -194,6 +195,13 @@ function configRoutes () {
               name: 'JoinGroupSuccess',
               component: JoinGroupSuccess,
               meta: { text: "join_group_success" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/CameraTest',
+              name: 'CameraTest',
+              component: CameraTest,
+              meta: { text: "CameraTest" },
               //beforeEnter: beforeAuth(true)
             },
           ]

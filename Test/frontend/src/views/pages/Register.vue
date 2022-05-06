@@ -4,10 +4,6 @@
       <CHeader fixed light style="padding-left: 20px; padding-top: 10px;">
         <div @click="primaryModal = true">
            <CIcon size="xl" class="c-sidebar-nav-icon ml-1" style="margin-top: 8px; color: #A90B0B" :content="$options.icons.returnIcon"/>
-          <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" >
-            <polygon fill="var(--ci-primary-color, currentColor)" points="497.333 239.999 80.092 239.999 176.087 144.004 153.46 121.377 18.837 256 153.46 390.623 176.087 367.996 80.09 271.999 497.333 271.999 497.333 239.999" class="ci-primary">
-            </polygon>
-         </svg> -->
         </div>
         <div id="title_text">
           <h2 style="font-weight:800; color: #A90B0B">회원가입</h2>
@@ -62,14 +58,6 @@
                     v-model="reg_name"
                     :is-valid="show_warning_name"
                   />
-                  <!-- <CInput
-                    type="text"
-                    label="연락처"
-                    invalid-feedback="연락처를 입력해주세요."
-                    value=""
-                    v-model="reg_phone_number"
-                    :is-valid="show_warning_phone"
-                  /> -->
                   <label>연락처</label>
                   <CRow class="form-group">
                     <CCol col="3" class="pr-1">
@@ -107,40 +95,17 @@
                   </CRow>
                   <p v-if="this.warning_phone" style="margin-top: -0.75rem; color:#e55353; font-size:80%">연락처를 입력해주세요.</p>
                   <p v-if="this.isPhoneInserted" style="margin-top: -0.75rem; color:#2eb85c; font-size:80%">좋아요! 이제 다 왔어요!</p>
-                  <!-- <CSelect
-                    @change="question_select($event)"
-                    name="select_question"
-                    label="본인 확인 질문"
-                    horizontal
-                    :options="options"
-                    placeholder="본인 확인 질문을 선택해주세요."
-                  />
-                  <CInput
-                    label="본인 확인 질문 답변"
-                    v-model="reg_answer"
-                    :description="description_text_answer()"
-                    :disabled="is_question_selected"
-                    :is-valid="answer_checker"
-                  /> -->
                   <CInputCheckbox
-                      v-for="(option, index) in options"
-                      :key="index"
-                      :is-valid="show_warning_check(index)"
-                      invalid-feedback="필수 사항입니다."
-                      class="mb-2"
-                      :label="option"
-                      :value="option"
-                      :custom="true"
-                      @change="aaa(index)"
-                    />
-
-
-                  <!-- <div class="form-check" style="textalign-right; margin-top:20px; margin-bottom:50px">
-                    <CInputCheckbox class="form-check-input" type="checkbox" value="" v-model="isAgreed" :custom="true" :inline="true" label="개인정보 수집 이용 동의" id="flexCheckDefault"/>
-                  </div> -->
-                  <!-- <div class="form-check" style="textalign-right; margin-top:20px; margin-bottom:80px">
-                    <CInputCheckbox class="form-check-input" type="checkbox" value="" v-model="isAgreed" :custom="true" :inline="true" label="(선택)마케팅 정보 이용 동의" id="flexCheckDefault"/>
-                  </div> -->
+                    v-for="(option, index) in options"
+                    :key="index"
+                    :is-valid="show_warning_check(index)"
+                    invalid-feedback="필수 사항입니다."
+                    class="mb-2"
+                    :label="option"
+                    :value="option"
+                    :custom="true"
+                    @change="check_check(index)"
+                  />
                 </CForm>
               </CCol>
             </CRow>
@@ -193,23 +158,6 @@
           <CButton @click="showIdOverlapModal = false;" color="danger">  확인  </CButton>
         </template>
       </CModal>
-
-      <!-- <CModal
-        :closeOnBackdrop="false"
-        title="Modal_3"
-        color="white"
-        :show.sync="insert_checker"
-        :centered="true"
-      >
-        비정상적 접근입니다. 로그인 페이지로 이동합니다.
-        <template #header>
-          <h6 class="modal-title">비정상적 접근 알림</h6>
-          <CButtonClose @click="goToLoginChecker(true)" class="text-white"/>
-        </template>
-        <template #footer>
-          <CButton @click="goToLoginChecker(true)" color="success">  확인  </CButton>
-        </template>
-      </CModal> -->
     </CWrapper>
   </div>
 </template>
@@ -226,12 +174,10 @@
   background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
   padding: 0.25rem 0.75rem;
 }
-
 .form-control:focus {
   border-color: #777;
   -webkit-box-shadow: 0 0 0 0.2rem rgb(180 180 180 / 25%);
   box-shadow: 0 0 0 0.2rem rgb(180 180 180 / 25%);
-
 }
 </style>
 
@@ -256,7 +202,6 @@ export default {
       temp_phone_num: ['','',''],
 
       reg_id_temp: "",
-      reg_email_temp: "",
 
       warning_id: false,
       warning_pass: false,
@@ -276,13 +221,11 @@ export default {
       show: true,
       primaryModal: false,
       showIdOverlapModal: false,
-      horizontal: { label:'col-3', input:'col-9' },
-
       options: ['(필수) 개인정보 수집 이용 동의', '(선택) 마케팅 정보 이용 동의'],
     }; 
     },
     methods: { 
-        aaa(idx){
+        check_check(idx){
           this.isAgreed[idx] = this.isAgreed[idx] ? false : true;
           if (this.isAgreed[0]) this.warning_agree = false;
         },
@@ -516,27 +459,6 @@ export default {
         if (this.warning_id) return false;
         return "";
       },
-      // nickname_value_checker (val) {
-      //   if (this.reg_nickname_temp != "" && this.reg_nickname_temp != this.reg_nickname)
-      //       this.isNicknameValid = false;
-      //   if (this.isNicknameValid){
-      //     return val ? val.length >= 2 : false
-      //   }
-      // },
-
-
-      // email_value_checker (val) {
-      //   // if (this.reg_email_temp != "" && this.reg_email_temp != this.reg_email)
-      //   //     this.isEmailValid = false;
-      //   // if (this.isEmailValid){
-      //   var email_test = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-      //   if(email_test.test(val)){
-      //     this.isEmailValid = true;
-      //     return true;
-      //   }
-      //   this.isEmailValid = false;
-      //   return false;
-      // },
       validator_pass_check(){
         if (this.isPassword1Valid && (this.reg_pass === this.reg_pass_check)){
           this.isPassword2Valid = true;

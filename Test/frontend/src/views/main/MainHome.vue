@@ -12,7 +12,7 @@
         </CRow>
         <CRow>
           <CCol col="6" class="pl-2 pr-2" v-for="(cards, index) in myManagement" :key="index">
-            <CCard class="main_color_border" @click="gotoViewPost(myUnivData.num)">
+            <CCard class="main_color_border middle_shadow" @click="gotoViewPost(myUnivData.num)">
               <CCardBody class="category_card" style="padding:1rem">
                 <CCol>
                   <CRow sm="5" v-if="cards.title != ''">
@@ -27,7 +27,7 @@
             </CCard>
           </CCol>
           <CCol col="6" class="pl-2 pr-2">
-            <CCard class="main_color_background" @click="gotoGenNewGroup()">
+            <CCard class="main_color_background dark_shadow" @click="gotoGenNewGroup()">
               <CCardBody class="category_card" style="padding:1rem">
                 
                   <CIcon size="custom" width="50" style="margin: 28%; color: #df6f6f; display:table;" :content="$options.icons.plusIcon"/>
@@ -44,7 +44,7 @@
         </CRow>
         <CRow>
           <CCol col="6" class="pl-2 pr-2" v-for="(cards, index) in myAffiliation" :key="index">
-            <CCard class="main_color_border" @click="gotoViewPost(myUnivData.num)">
+            <CCard class="main_color_border middle_shadow" @click="gotoViewPost(myUnivData.num)">
               <CCardBody class="category_card" style="padding:1rem">
                 <CCol>
                   <CRow sm="5" v-if="cards.title != ''">
@@ -59,7 +59,7 @@
             </CCard>
           </CCol>
           <CCol col="6" class="pl-2 pr-2">
-            <CCard class="main_color_background" @click="gotoJoinGroup()">
+            <CCard class="main_color_background dark_shadow" @click="gotoJoinGroup()">
               <CCardBody class="category_card" style="padding:1rem">
                 
                   <CIcon size="custom" width="50" style="margin: 28%; color: #df6f6f; display:table;" :content="$options.icons.plusIcon"/>

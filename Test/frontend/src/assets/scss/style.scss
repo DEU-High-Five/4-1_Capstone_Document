@@ -42,6 +42,7 @@ a{
 .border-outline-color{
   border: solid 3px #a90b0b;
   border-radius: 7px;
+  box-shadow: 3px 3px 7px #EEE;
 }
 
 .form-control:focus {
@@ -67,7 +68,7 @@ a{
 
 .main_color_background{
   background-color: #a90b0b;
-  border: solid 2px #a90b0b;
+  border: solid 3px #ffffff;
   border-radius: 8px;
 }
 
@@ -249,6 +250,14 @@ body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
 
 .light_shadow{
   box-shadow: 3px 3px 7px #EEE
+}
+
+.middle_shadow{
+  box-shadow: 3px 3px 7px #BBB
+}
+
+.dark_shadow{
+  box-shadow: 3px 3px 7px #777
 }
 
 .light_dark_shadow{

@@ -1,3 +1,6 @@
+(POST) 아이디 중복확인
+
+
 (POST)회원가입 시 전송될 데이터 (변수 이름) 명세
 reg_id : 등록할 회원 아이디
 reg_password: 암호화된 회원 비밀번호
@@ -27,4 +30,28 @@ user = {
 	Name : 로그인 성공한 사용자의 이름
 	accessToken : 발급된 액세스 토큰 (자동 로그인 용, RefreshToken은 서버에서만 관리)
 }
+
+
+토큰 관련 함수들(user.js)은 수정 없이 그대로 사용
+
+
+(POST) 메인 홈 화면 접근 시 전송될 데이터 명세
+userId : 사용자 아이디 (사용자 아이디로 본인 소속, 관리 기관 탐색)
+
+응답 데이터 명세
+
+myManagement: [		// 내 관리 기관 목록 (배열)
+	{	
+		groupCode: 기관 코드
+		title: 기관 이름
+		subtitle: 기관 설명
+	}, ... 반복
+],
+myAffiliation: [		// 내 소속 기관 목록 (배열)
+	{	
+		groupCode: 기관 코드
+		title: 기관 이름
+		subtitle: 기관 설명
+	}, ... 반복
+]
 

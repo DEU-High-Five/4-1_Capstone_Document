@@ -2,7 +2,7 @@
   <div>
     <CContainer>
       <CRow>
-        <h3 class="font_bold ml-2">관리힐 기관 등록</h3>
+        <h3 class="font_bold ml-2">관리할 기관 등록</h3>
       </CRow>
         <CForm>
           <CInput id="noWarning"
@@ -80,7 +80,7 @@ export default {
   name: 'GenNewGroup',
   data () {
     return {
-      userName: "정성주",
+      userName: this.getUserInfo.userName,
       groupName: "",
       groupDescription: "",
       uploadModal: false,

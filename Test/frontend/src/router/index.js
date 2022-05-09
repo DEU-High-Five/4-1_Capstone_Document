@@ -68,6 +68,7 @@ const JoinGroup = () => import('@/views/main/JoinGroup')
 const CheckGroup = () => import('@/views/main/CheckGroup')
 const JoinGroupSuccess = () => import('@/views/main/JoinGroupSuccess')
 const CameraTest = () => import('@/views/main/CameraTest')
+const ViewList = () => import('@/views/main/ViewList')
 
 
 
@@ -195,6 +196,13 @@ function configRoutes () {
               name: 'JoinGroupSuccess',
               component: JoinGroupSuccess,
               meta: { text: "join_group_success" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/ViewList',
+              name: 'ViewList',
+              component: ViewList,
+              meta: { text: "view_list", footer:true },
               //beforeEnter: beforeAuth(true)
             },
             {

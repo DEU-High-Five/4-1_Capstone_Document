@@ -12,7 +12,7 @@
         </CRow>
         <CRow>
           <CCol col="6" class="pl-2 pr-2" v-for="(cards, index) in myManagement" :key="index">
-            <CCard class="main_color_border middle_shadow" @click="gotoViewPost(myUnivData.num)">
+            <CCard class="main_color_border middle_shadow" @click="gotoViewPost()">
               <CCardBody class="category_card" style="padding:1rem">
                 <CCol>
                   <CRow sm="5" v-if="cards.title != ''">
@@ -140,49 +140,48 @@ export default {
     }
   },
   created(){
-    // http.post('/matching', {
-    //   user_univ: this.getUserInfo.univ,
-    //   user_major: this.getUserInfo.major
-    // }).then((res) => {
-    //   if (res.status === 200) { 
-    //     this.myMajorData = res.data.posts.myMajor
-    //     this.myUnivData = res.data.posts.myUniv
-    //     this.friendsData = res.data.posts.friends
-    //     this.clubData = res.data.posts.club
-    //   }
-    //   }).catch(function (error){
-    //     console.log(error)
-    // })
+    /*
+    http.post('/홈 경로', {
+      userId: this.getUserInfo.userId
+    }).then((res) => {
+      if (res.status === 200) { 
+        this.myMajorData = res.data.posts.myMajor
+        this.myUnivData = res.data.posts.myUniv
+        this.friendsData = res.data.posts.friends
+        this.clubData = res.data.posts.club
+      }
+      }).catch(function (error){
+        console.log(error)
+    })
 
-    // http.post('/users/refresh', {
-    //   userId: this.getUserInfo.userId
-    // }).then((res) => {
-    //   console.log(res.data.message)
-    //   if (res.status === 200) { 
-    //     if(res.data.state == true){
-    //       console.log(res.data.refreshed + " refreshed")
-    //       if (res.data.refreshed == 'access'){
-    //         this.$store.commit("refreshToken", res.data.newToken);
+    http.post('/users/refresh', {
+      userId: this.getUserInfo.userId
+    }).then((res) => {
+      console.log(res.data.message)
+      if (res.status === 200) { 
+        if(res.data.state == true){
+          console.log(res.data.refreshed + " refreshed")
+          if (res.data.refreshed == 'access'){
+            this.$store.commit("refreshToken", res.data.newToken);
             
-    //       }
-    //     }
-    //     else{
-    //       this.$store.commit('set', ['sidebarShow', false])
-    //       this.$store.dispatch("logout", {})
-    //       .then(() => this.redirect())
-    //       .catch(({ message }) => alert(message))
-    //     }
-    //   }
-    //   }
-    //   ).catch(function (error){
-    //     console.log(error)
-    // })
+          }
+        }
+        else{
+          this.$store.commit('set', ['sidebarShow', false])
+          this.$store.dispatch("logout", {})
+          .then(() => this.redirect())
+          .catch(({ message }) => alert(message))
+        }
+      }
+      }
+      ).catch(function (error){
+        console.log(error)
+    })
+    */
   },
   computed:{
     ...mapGetters([
       "isNotAuthenticated",
-      "getUserUniv",
-      "getUserMajor",
       "getUserInfo"
       ])
   },
@@ -240,7 +239,8 @@ export default {
     },
     gotoViewPost(value){
       if (value != ''){
-        this.$router.push({ name: 'ViewPost', query: {data : JSON.stringify({num: value})} })
+        //this.$router.push({ name: 'ViewPost', query: {data : JSON.stringify({num: value})} })
+        this.$router.push({ name: 'ViewList' })
       }
     },
   }

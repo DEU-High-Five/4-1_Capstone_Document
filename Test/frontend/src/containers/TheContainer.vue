@@ -12,7 +12,7 @@
           </CContainer>
         </main>
       </div>
-      <!-- <TheFooter/> -->
+      <TheFooter v-if="footer"/>
     </CWrapper>
   </div>
 </template>
@@ -31,12 +31,16 @@ export default {
   },
   data(){
     return{
-      transition: ""
+      transition: "",
+      footer: false,
     }
   },
   watch: { 
     $route(to, from) {
       this.transition = "fade";
+      console.log(to.meta.footer)
+      if (to.meta.footer === true) this.footer = true;
+      else this.footer = false;
     }
     
   }

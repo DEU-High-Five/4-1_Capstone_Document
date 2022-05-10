@@ -9,10 +9,9 @@
     <CSidebarHeader style="background-color: white;">
       <img src="../assets/images/banner.svg" style="width:60%; height:90%;">
     </CSidebarHeader>
-    <div style="padding: 0.8rem 1.2rem 0 1.2rem; border-top:solid 1px #ccc; border-bottom:solid 1px #ccc; text-align:center; background-color: #efefef">
-      <div id="circle" style="margin: 0 auto"/>
-      <h5 style="padding-top: 1rem">{{getUserInfo.major}}</h5>
-      <h5><a class="font_bold">{{getUserInfo.nickname}}({{getUserInfo.userId}})</a> 님</h5> 
+    <div style="padding: 1rem 1.2rem 1rem 1.2rem; border-bottom: solid 1px #f1f1f1; border-top:solid 1px #f1f1f1; background-color: #fafafa">
+      <div id="circle" style="float:left; margin-right: 20px;" />
+      <div style="padding-top: 15px; font-size: 16px;"><b class="font_bold"><!--{{getUserInfo.userId}}--> admin</b> 님</div> 
     </div>
       <!-- <CRenderFunction flat :content-to-render="$options.nav"/> -->
         <CSidebarNav>
@@ -69,8 +68,8 @@
 
 <style lang="scss" scoped>
 #circle {
-  width: 5rem;
-  height: 5rem;
+  width: 3rem;
+  height: 3rem;
   background-image: url("../assets/images/profile_image.png");
 }
 </style>

@@ -5,6 +5,9 @@ import store  from "../store"
 // Containers
 const TheContainer = () => import('@/containers/TheContainer')
 
+// 2nd Container
+const TheSecondContainer = () => import('@/containers/second_container/Container')
+
 // Views
 
 const Colors = () => import('@/views/theme/Colors')
@@ -70,6 +73,10 @@ const JoinGroupSuccess = () => import('@/views/main/JoinGroupSuccess')
 const CameraTest = () => import('@/views/main/CameraTest')
 const ViewList = () => import('@/views/main/ViewList')
 
+
+
+// Views - Stuff List
+const ViewListTmp = () => import('@/views/stf_list/ViewList')
 
 
 // Views - Matching
@@ -561,6 +568,31 @@ function configRoutes () {
             }
           ]
         }
+      ]
+    },
+    {
+      path: '/stf_list',
+      redirect: '/stf_list/ViewList',
+      name: 'StuffList',
+      component: TheSecondContainer,
+      children: [
+        {
+          path: '/stf_list',
+          redirect: '/stf_list/ViewList',
+          name: 'StuffListMain',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: '/stf_list/ViewList',
+              name: 'ViewListTmp',
+              component: ViewListTmp,
+              meta: { text: "view_list" },
+              //beforeEnter: beforeAuth(true)
+            },
+          ]
+        },
       ]
     },
     {

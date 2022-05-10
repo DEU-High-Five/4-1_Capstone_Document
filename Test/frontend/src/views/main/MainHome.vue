@@ -240,7 +240,7 @@ export default {
     gotoViewPost(value){
       if (value != ''){
         //this.$router.push({ name: 'ViewPost', query: {data : JSON.stringify({num: value})} })
-        this.$router.push({ name: 'ViewList' })
+        this.$router.push({ name: 'ViewListTmp' })
       }
     },
   }

@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import TheSidebar from './TheSidebar'
-import TheHeader from './TheHeader'
-import TheFooter from './TheFooter'
+import TheSidebar from '../TheSidebar'
+import TheHeader from './Header.vue'
+import TheFooter from './Footer.vue'
 
 export default {
   name: 'TheContainer',
@@ -32,11 +32,15 @@ export default {
   data(){
     return{
       transition: "",
+      footer: false,
     }
   },
   watch: { 
     $route(to, from) {
       this.transition = "fade";
+      console.log(to.meta.footer)
+      if (to.meta.footer === true) this.footer = true;
+      else this.footer = false;
     }
     
   }

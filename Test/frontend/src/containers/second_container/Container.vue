@@ -12,7 +12,7 @@
           </CContainer>
         </main>
       </div>
-      <TheFooter/>
+      <TheFooter v-if="this.isFooterVisible"/>
     </CWrapper>
   </div>
 </template>
@@ -32,15 +32,14 @@ export default {
   data(){
     return{
       transition: "",
-      footer: false,
+      isFooterVisible: true,
     }
   },
   watch: { 
     $route(to, from) {
       this.transition = "fade";
-      console.log(to.meta.footer)
-      if (to.meta.footer === true) this.footer = true;
-      else this.footer = false;
+      if (to.meta.footer === true) this.isFooterVisible = true;
+      else this.isFooterVisible = false;
     }
     
   }

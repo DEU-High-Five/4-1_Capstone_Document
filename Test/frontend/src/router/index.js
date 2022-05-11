@@ -71,13 +71,13 @@ const JoinGroup = () => import('@/views/main/JoinGroup')
 const CheckGroup = () => import('@/views/main/CheckGroup')
 const JoinGroupSuccess = () => import('@/views/main/JoinGroupSuccess')
 const CameraTest = () => import('@/views/main/CameraTest')
-const ViewList = () => import('@/views/main/ViewList')
+// const ViewList = () => import('@/views/main/ViewList')
 
 
 
 // Views - Stuff List
-const ViewListTmp = () => import('@/views/stf_list/ViewList')
-
+const ViewList = () => import('@/views/stf_list/ViewList')
+const AddNewStuff = () => import('@/views/stf_list/AddNewStuff')
 
 // Views - Matching
 const MatchingCategory = () => import('@/views/matching/MatchingCategory')
@@ -205,13 +205,13 @@ function configRoutes () {
               meta: { text: "join_group_success" },
               //beforeEnter: beforeAuth(true)
             },
-            {
-              path: '/main/ViewList',
-              name: 'ViewList',
-              component: ViewList,
-              meta: { text: "view_list", footer:true },
-              //beforeEnter: beforeAuth(true)
-            },
+            // {
+            //   path: '/main/ViewList',
+            //   name: 'ViewList',
+            //   component: ViewList,
+            //   meta: { text: "view_list", footer:true },
+            //   //beforeEnter: beforeAuth(true)
+            // },
             {
               path: '/main/CameraTest',
               name: 'CameraTest',
@@ -586,9 +586,16 @@ function configRoutes () {
           children: [
             {
               path: '/stf_list/ViewList',
-              name: 'ViewListTmp',
-              component: ViewListTmp,
+              name: 'ViewList',
+              component: ViewList,
               meta: { text: "view_list" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/stf_list/AddNewStuff',
+              name: 'AddNewStuff',
+              component: AddNewStuff,
+              meta: { text: "add_new_stuff", footer: false },
               //beforeEnter: beforeAuth(true)
             },
           ]

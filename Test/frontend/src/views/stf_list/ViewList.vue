@@ -49,7 +49,7 @@
     </CCard>
     <div style="height: 80px; width:10px">
     </div>
-    <div class="btn-floating-bottom" @click="gotoMain">
+    <div class="btn-floating-bottom" @click="gotoAddStuff">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" height="35"><polygon fill="var(--ci-primary-color, currentColor)" points="440 240 272 240 272 72 240 72 240 240 72 240 72 272 240 272 240 440 272 440 272 272 440 272 440 240" class="ci-primary"></polygon></svg>
     </div>
   </div>
@@ -61,17 +61,11 @@
 import { mapGetters } from "vuex";
 import http from "../../http";
 export default {
-  name: "GenNewGroup",
+  name: "ViewList",
 
   data() {
     return {
-      userName: "정성주",
-      groupCode: ["", ""],
-      userDescription: "",
-      uploadModal: false,
-
-      warning_group_code: false,
-      warning_user_desc: false,
+      groupCode: "",
 
       varia: false,
       
@@ -103,49 +97,14 @@ export default {
 
     };
   },
-  created() {},
+  created() {
+    this.groupCode = JSON.parse(this.$route.query.data).groupCode
+  },
   computed: {
     ...mapGetters(["isNotAuthenticated", "getUserInfo"]),
   },
   methods: {
-    show_upload_modal() {
-      const checker = this.upload_checker();
-      if (!checker) return;
-      return (this.uploadModal = true);
-    },
-    upload_checker() {
-      // 기관 코드
-      if (this.groupCode[0].length != 4 || this.groupCode[1].length != 4) {
-        this.warning_group_code = true;
-      } else {
-        this.warning_group_code = false;
-      }
-
-      // 직급/부서
-      if (
-        this.userDescription == "" ||
-        this.userDescription.length < 1 ||
-        this.userDescription.length > 20
-      ) {
-        this.warning_user_desc = true;
-      } else {
-        this.warning_user_desc = false;
-      }
-
-      if (this.warning_group_code || this.warning_user_desc) {
-        return false;
-      }
-      this.uploadModal = true;
-      return true;
-    },
-    show_warning_group_code() {
-      if (this.warning_group_code) return false;
-      return "";
-    },
-    show_warning_user_desc() {
-      if (this.warning_user_desc) return false;
-      return "";
-    },
+    
     check_and_send() {
       //임시
       return this.$router.replace({
@@ -154,11 +113,9 @@ export default {
       });
 
       http
-        .post("/matching/upload", {
+        .post("주소", {
           userId: "",
-          userName: this.getUserInfo.univ,
-          groupName: this.groupName,
-          groupDescription: html_content,
+          groupCode: this.groupCode
         })
         .then((res) => {
           console.log(res.data.success);
@@ -176,8 +133,8 @@ export default {
           console.log(error);
         });
     },
-    gotoMain() {
-      this.$router.push({ name: "MainHome" });
+    gotoAddStuff() {
+      this.$router.push({ name: "AddNewStuff" });
     },
   },
 };

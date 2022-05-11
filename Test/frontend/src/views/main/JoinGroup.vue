@@ -47,7 +47,7 @@
             invalid-feedback="직급/부서가 입력되지 않았습니다."
           />
         </CForm>
-      <CButton size="lg" color="primary" style="margin:30% auto 0 auto; width:95%;" block @click="upload_checker">다음</CButton>
+      <CButton size="lg" color="primary" style="margin:10% auto; width:95%;" block @click="upload_checker">다음</CButton>
     <CModal
       class="show d-block position-static" 
       :show.sync="uploadModal"
@@ -92,7 +92,7 @@ export default {
   name: 'GenNewGroup',
   data () {
     return {
-      userName: "정성주",
+      userName: "",
       groupCode: ['', ''],
       userDescription: "",
       uploadModal: false,

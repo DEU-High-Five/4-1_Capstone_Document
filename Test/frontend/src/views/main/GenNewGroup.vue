@@ -35,7 +35,7 @@
             invalid-feedback="내용을 입력해주세요."
           />
         </CForm>
-      <CButton size="lg" color="primary" style="margin:30% auto 0 auto; width:95%;" block @click="upload_checker">다음</CButton>
+      <CButton size="lg" color="primary" style="margin:10% auto; width:95%;" block @click="upload_checker">다음</CButton>
     <CModal
       class="show d-block position-static" 
       :show.sync="uploadModal"
@@ -80,7 +80,8 @@ export default {
   name: 'GenNewGroup',
   data () {
     return {
-      userName: this.getUserInfo.userName,
+      //userName: this.getUserInfo.userName,
+      userName: "정성주",
       groupName: "",
       groupDescription: "",
       uploadModal: false,

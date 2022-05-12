@@ -43,6 +43,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
+    "bottom-navigation-vue": "^2.5.0",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
     "mariadb": "^2.5.5",
@@ -58,7 +59,7 @@
   "devDependencies": {
     "@babel/core": "^7.13.10",
     "@babel/plugin-transform-runtime": "^7.16.8",
-    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-babel": "^5.0.4",
     "@vue/cli-plugin-e2e-nightwatch": "^4.5.11",
     "@vue/cli-plugin-eslint": "^4.5.11",
     "@vue/cli-plugin-unit-jest": "^4.5.11",

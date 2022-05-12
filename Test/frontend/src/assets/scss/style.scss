@@ -14,6 +14,68 @@ a{
   color: black;
 }
 
+.style-pill{
+  border: solid 1.5px;
+  border-radius: 20px;
+  padding: 3px 7px;
+}
+
+.btn-floating {
+  position: fixed;
+  top: 10%;
+  right:8%;
+  color: #fff;
+  padding: 10px;
+  width: 55.5px; height: 55.5px;
+  display: inline-block;
+  outline: 0;
+  border: none;
+  text-decoration: none;
+  background: #a90b0b;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.btn-floating-bottom {
+  position: fixed;
+  bottom: 10%;
+  right:8%;
+  color: #fff;
+  padding: 10px;
+  width: 55.5px; height: 55.5px;
+  display: inline-block;
+  outline: 0;
+  border: none;
+  text-decoration: none;
+  background: #a90b0b;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.btn-floating:hover {
+  background: #a90b0b;
+}
+.btn-floating div {
+  font-size: 1.8em;
+  padding: 0;
+  margin: .22em 0 0 0;
+}
+
+.border-outline-color{
+  border: solid 3px #a90b0b;
+  border-radius: 7px;
+  box-shadow: 3px 3px 7px #EEE;
+}
+
+.form-control:focus {
+  border-color: #777;
+  -webkit-box-shadow: 0 0 0 0.2rem rgb(180 180 180 / 25%);
+  box-shadow: 0 0 0 0.2rem rgb(180 180 180 / 25%);
+
+}
+
 #app{
   background-color: white;
   font-family: 'NanumSquare', sans-serif;
@@ -28,9 +90,16 @@ a{
   color: #a90b0b;
 }
 
+.main_color_background{
+  background-color: #a90b0b;
+  border: solid 3px #ffffff;
+  border-radius: 8px;
+}
+
 .main_color_border{
   color: #a90b0b;
-  border-color: #a90b0b;
+  border: solid 2px #a90b0b;
+  border-radius: 8px;
 }
 
 .c-app{
@@ -129,7 +198,7 @@ body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
 }
 
 .category_card{
-  height: 120px;
+  height: 140px;
   color: #f7f6ee;
 }
 
@@ -142,18 +211,19 @@ body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
   color: #f7f6ee;
 }
 
-#card_title_compact{
+.card_title_compact{
   overflow: hidden;
   font-weight: 800;
   width:80%;
   text-shadow: 3px 3px 7px #555555;
 }
 
-#card_title{
+.card_title{
+  color:black;
+  font-size: 18px;
   overflow: hidden;
   font-weight: 800;
-  width:80%;
-  text-shadow: 3px 3px 7px #555555;
+  width:100%;
   white-space: normal;
   line-height: 1.2;
   height: 2.4em;
@@ -164,46 +234,20 @@ body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
   -webkit-box-orient: vertical;
 }
 
-
-.color_my_major{
-  background-color: #4E72B8;
-}
-
-.color_my_univ{
-  background-color: #A276AE;
-}
-
-.color_friends{
-  background-color: #BC8F8F;
-}
-
-.color_club{
-  background-color: #E9A41B;
-}
-
-// 카테고리 별 카드 클래스
-.my_major_card{
-  background-color: #4E72B8; 
-  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
-  border-color: #4E72B8
-}
-
-.my_univ_card{
-  background-color: #A276AE; 
-  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
-  border-color: #A276AE
-}
-
-.friends_card{
-  background-color: #BC8F8F; 
-  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
-  border-color: #BC8F8F
-}
-
-.club_card{
-  background-color: #E9A41B; 
-  box-shadow: 3px 3px 10px rgb(152, 152, 152); 
-  border-color: #E9A41B
+.card_sub_title{
+  color:black;
+  font-size: 15px;
+  overflow: hidden;
+  font-weight: 500;
+  width:100%;
+  white-space: normal;
+  line-height: 1.2;
+  height: 3.6em;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 @media (max-height: 480px){
@@ -230,6 +274,14 @@ body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
 
 .light_shadow{
   box-shadow: 3px 3px 7px #EEE
+}
+
+.middle_shadow{
+  box-shadow: 3px 3px 7px #BBB
+}
+
+.dark_shadow{
+  box-shadow: 3px 3px 7px #777
 }
 
 .light_dark_shadow{

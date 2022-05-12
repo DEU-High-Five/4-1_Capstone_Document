@@ -18,7 +18,10 @@ export default {
     };
   },
   watch: { 
-    $route(to, from) { 
+    $route(to, from) {
+      console.log(to.meta.text)
+      
+
       if(to.meta.text == "matching_home")
         this.transitionName = "fade";
       else if(to.meta.page == null || from.meta.page == null){ 

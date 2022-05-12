@@ -5,6 +5,9 @@ import store  from "../store"
 // Containers
 const TheContainer = () => import('@/containers/TheContainer')
 
+// 2nd Container
+const TheSecondContainer = () => import('@/containers/second_container/Container')
+
 // Views
 
 const Colors = () => import('@/views/theme/Colors')
@@ -59,6 +62,22 @@ const Register2 = () => import('@/views/pages/Register2')
 const Register3 = () => import('@/views/pages/Register3')
 const RegisterSuccess = () => import('@/views/pages/RegisterSuccess')
 const RegisterFailed = () => import('@/views/pages/RegisterFailed')
+
+// Views - Main
+const MainHome = () => import('@/views/main/MainHome')
+const GenNewGroup = () => import('@/views/main/GenNewGroup')
+const GenGroupSuccess = () => import('@/views/main/GenGroupSuccess')
+const JoinGroup = () => import('@/views/main/JoinGroup')
+const CheckGroup = () => import('@/views/main/CheckGroup')
+const JoinGroupSuccess = () => import('@/views/main/JoinGroupSuccess')
+const CameraTest = () => import('@/views/main/CameraTest')
+// const ViewList = () => import('@/views/main/ViewList')
+
+
+
+// Views - Stuff List
+const ViewList = () => import('@/views/stf_list/ViewList')
+const AddNewStuff = () => import('@/views/stf_list/AddNewStuff')
 
 // Views - Matching
 const MatchingCategory = () => import('@/views/matching/MatchingCategory')
@@ -137,6 +156,77 @@ function configRoutes () {
       component: TheContainer,
       children: [
         {
+          path: 'main',
+          redirect: '/main/MainHome',
+          name: 'Main',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: '/main/MainHome',
+              name: 'MainHome',
+              component: MainHome,
+              meta: { text: "main_home" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/GenNewGroup',
+              name: 'GenNewGroup',
+              component: GenNewGroup,
+              meta: { text: "gen_new_group" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/GenGroupSuccess',
+              name: 'GenGroupSuccess',
+              component: GenGroupSuccess,
+              meta: { text: "gen_group_success" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/JoinGroup',
+              name: 'JoinGroup',
+              component: JoinGroup,
+              meta: { text: "join_group" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/CheckGroup',
+              name: 'CheckGroup',
+              component: CheckGroup,
+              meta: { text: "check_group" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/JoinGroupSuccess',
+              name: 'JoinGroupSuccess',
+              component: JoinGroupSuccess,
+              meta: { text: "join_group_success" },
+              //beforeEnter: beforeAuth(true)
+            },
+            // {
+            //   path: '/main/ViewList',
+            //   name: 'ViewList',
+            //   component: ViewList,
+            //   meta: { text: "view_list", footer:true },
+            //   //beforeEnter: beforeAuth(true)
+            // },
+            {
+              path: '/main/CameraTest',
+              name: 'CameraTest',
+              component: CameraTest,
+              meta: { text: "CameraTest" },
+              //beforeEnter: beforeAuth(true)
+            },
+          ]
+        },
+
+
+
+
+
+        {
           path: 'matching',
           redirect: '/matching/MatchingCategory',
           name: 'Matching',
@@ -149,43 +239,43 @@ function configRoutes () {
               name: 'MatchingCategory',
               component: MatchingCategory,
               meta: { text: "matching_home" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/CategoryView',
               name: 'CategoryView',
               component: CategoryView,
               meta: { text: "in_category" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/CategoryMyUniv',
               name: 'CategoryMyUniv',
               component: CategoryMyUniv,
               meta: { text: "in_category" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/ViewPost',
               name: 'ViewPost',
-              component: ViewPost,
+              //component: ViewPost,
               props: true,
               meta: { text: "view_post_" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/NewPost',
               name: 'NewPost',
               component: NewPost,
               meta: { text: "new_post" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
             {
               path: '/matching/view404',
               name: 'View404',
               component: View404,
               meta: { text: "view_404" },
-              beforeEnter: beforeAuth(true)
+              //beforeEnter: beforeAuth(true)
             },
           ]
         },
@@ -481,6 +571,38 @@ function configRoutes () {
       ]
     },
     {
+      path: '/stf_list',
+      redirect: '/stf_list/ViewList',
+      name: 'StuffList',
+      component: TheSecondContainer,
+      children: [
+        {
+          path: '/stf_list',
+          redirect: '/stf_list/ViewList',
+          name: 'StuffListMain',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: '/stf_list/ViewList',
+              name: 'ViewList',
+              component: ViewList,
+              meta: { text: "view_list" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/stf_list/AddNewStuff',
+              name: 'AddNewStuff',
+              component: AddNewStuff,
+              meta: { text: "add_new_stuff", footer: false },
+              //beforeEnter: beforeAuth(true)
+            },
+          ]
+        },
+      ]
+    },
+    {
       path: '/pages',
       redirect: '/pages/404',
       name: 'Pages',
@@ -516,6 +638,7 @@ function configRoutes () {
           path: 'register',
           name: 'Register',
           component: Register,
+          meta: { page: 2 },
         },
         {
           path: 'register1',

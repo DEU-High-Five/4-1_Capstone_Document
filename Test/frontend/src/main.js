@@ -9,6 +9,7 @@ import AOS from 'aos'
 import "aos/dist/aos.css"
 import Meta from 'vue-meta'
 import axios from 'axios'
+import { RingBottomNavigation, SwipeBottomNavigation  } from "bottom-navigation-vue";
 Vue.config.productionTip = false
 
 Vue.config.performance = true
@@ -16,6 +17,8 @@ Vue.use(CoreuiVue)
 Vue.prototype.$log = console.log.bind(console)
 Vue.use(Meta);
 Vue.prototype.$http = axios
+Vue.use(RingBottomNavigation);
+Vue.use(SwipeBottomNavigation );
 // asyncFunction("select * from USER", hifiveDB);
 
 new Vue({

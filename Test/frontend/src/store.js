@@ -42,11 +42,23 @@ const mutations = {
 const pageStore = {
   namespaced: true,
   state:{
-    pageInfo: '',
-    pageRoute: '',
-    isMainPage: true,
-    category: '',
-    message: 0,
+    isFooterVisible: "",
+    headerTitle: "",
+    addList: "",
+  },
+  mutations:{
+    set_page(state, [variable, value]) {
+      state[variable] = value
+    },
+  }
+}
+
+const addListStore = {
+  namespaced: true,
+  state:{
+    isFooterVisible: true,
+    headerTitle: "",
+    addList: false,
   },
   mutations:{
     set_page(state, [variable, value]) {

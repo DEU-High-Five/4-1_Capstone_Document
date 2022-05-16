@@ -78,6 +78,7 @@ const CameraTest = () => import('@/views/main/CameraTest')
 // Views - Stuff List
 const ViewList = () => import('@/views/stf_list/ViewList')
 const AddNewStuff = () => import('@/views/stf_list/AddNewStuff')
+const SetNewStuff = () => import('@/views/stf_list/SetNewStuff')
 
 // Views - Matching
 const MatchingCategory = () => import('@/views/matching/MatchingCategory')
@@ -596,6 +597,13 @@ function configRoutes () {
               name: 'AddNewStuff',
               component: AddNewStuff,
               meta: { text: "add_new_stuff", footer: false },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/stf_list/SetNewStuff',
+              name: 'SetNewStuff',
+              component: SetNewStuff,
+              meta: { text: "set_new_stuff", footer: false },
               //beforeEnter: beforeAuth(true)
             },
           ]

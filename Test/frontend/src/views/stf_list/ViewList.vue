@@ -98,6 +98,12 @@ export default {
     };
   },
   created() {
+    this.$store.commit("pageStore/set_page", ["isFooterVisible", "true"]);
+    this.$store.commit("pageStore/set_page", ["addList", "false"]);
+    if (JSON.parse(this.$route.query.data).to == 'manage')
+      this.$store.commit("pageStore/set_page", ["headerTitle", "나의 관리 기관"]);
+    if (JSON.parse(this.$route.query.data).to == 'affiliation')
+      this.$store.commit("pageStore/set_page", ["headerTitle", "나의 소속 기관"]);
     this.groupCode = JSON.parse(this.$route.query.data).groupCode
   },
   computed: {

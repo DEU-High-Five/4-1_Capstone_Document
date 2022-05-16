@@ -29,7 +29,7 @@
           </CCol>
           <CCol col="8">
             <CRow>
-              <h2>{{ stuff.title }}</h2>
+              <h3 class="bold">{{ stuff.title }}</h3>
             </CRow>
             <CRow>
               <p class="mb-1" style="font-size: 20px; margin: auto 0">수량:</p>
@@ -78,27 +78,27 @@
           </CCol>
         </CRow>
         <CRow class="pl-4 pr-4">
-          <p style="font-size:18px">aaaaaaaaaaaaaaaaaaaaaaaaa aaaaa</p>
+          <p style="font-size:18px">{{stuff.subtitle}}</p>
         </CRow>
         <CRow> 
           <CCol col="6">
             <CButton class="middle_shadow bold" color="primary" style="font-size:16px" block>삭제</CButton>
           </CCol>
           <CCol col="6">
-            <CButton class="middle_shadow bold" color="success" style="font-size:16px" block>수정</CButton>
+            <CButton class="middle_shadow bold" color="success" style="font-size:16px; background-color: #436e5e; border-color: #436e5e;" block>수정</CButton>
           </CCol>
         </CRow>
       </CCardBody>
     </CCard>
 
-    <CCard class="main_color_background middle_shadow" style="border: none">
+    <CCard class="border-outline-color middle_shadow" @click="addNew()">
       <CCardBody
         style="height: 80px; display: inline-block; margin: 8px auto 0 auto"
       >
         <CIcon
           size="custom"
           width="30"
-          style="color: #ffffff"
+          style="color: #a90b0b"
           :content="$options.icons.plusIcon"
         />
       </CCardBody>
@@ -132,18 +132,21 @@ export default {
       stuff_info: [
         {
           title: "물품 이름 1",
-          subtitle: "물품에 대한 간략한 설명입니다.",
+          subtitle: "물품1에 대한 간략한 설명입니다.",
           in_stock: true,
         },
         {
           title: "물품 이름 2",
-          subtitle: "물품에 대한 간략한 설명입니다.",
+          subtitle: "물품2에 대한 간략한 설명입니다.",
           in_stock: false,
         },
       ],
     };
   },
-  created() {},
+  created() {
+    this.$store.commit("pageStore/set_page", ["isFooterVisible", "false"]);
+    this.$store.commit("pageStore/set_page", ["addList", "true"]);
+  },
   computed: {
     ...mapGetters(["isNotAuthenticated", "getUserInfo"]),
   },
@@ -216,6 +219,9 @@ export default {
     },
     gotoMain() {
       this.$router.push({ name: "MainHome" });
+    },
+    addNew() {
+      this.$router.push({ name: "SetNewStuff" });
     },
   },
 };

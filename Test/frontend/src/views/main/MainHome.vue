@@ -33,7 +33,7 @@
             >
               <CCard
                 class="main_color_border middle_shadow"
-                @click="gotoViewList(cards.groupCode)"
+                @click="gotoViewList(cards.groupCode, 'manage')"
               >
                 <CCardBody class="category_card" style="padding: 1rem">
                   <CCol>
@@ -63,11 +63,11 @@
                 class="main_color_background dark_shadow"
                 @click="gotoGenNewGroup()"
               >
-                <CCardBody class="category_card" style="padding: 1rem">
+                <CCardBody class="category_card" style="padding: 1rem; display: inline-flex; margin: auto;">
                   <CIcon
                     size="custom"
                     width="50"
-                    style="margin: 28%; color: #df6f6f; display: table"
+                    style="color: #df6f6f;"
                     :content="$options.icons.plusIcon"
                   />
                 </CCardBody>
@@ -105,7 +105,7 @@
             >
               <CCard
                 class="main_color_border middle_shadow"
-                @click="gotoViewList(cards.groupCode)"
+                @click="gotoViewList(cards.groupCode, 'affiliation')"
               >
                 <CCardBody class="category_card" style="padding: 1rem">
                   <CCol>
@@ -135,11 +135,11 @@
                 class="main_color_background dark_shadow"
                 @click="gotoJoinGroup()"
               >
-                <CCardBody class="category_card" style="padding: 1rem">
+                <CCardBody class="category_card" style="padding: 1rem; display: inline-flex; margin: auto;">
                   <CIcon
                     size="custom"
                     width="50"
-                    style="margin: 28%; color: #df6f6f; display: table"
+                    style="color: #df6f6f;"
                     :content="$options.icons.plusIcon"
                   />
                 </CCardBody>
@@ -327,9 +327,9 @@ export default {
     gotoJoinGroup() {
       this.$router.push({ name: "JoinGroup" });
     },
-    gotoViewList(value) {
+    gotoViewList(value, target) {
       if (value != "") {
-        this.$router.push({ name: 'ViewList', query: {data : JSON.stringify({groupCode: value})} })
+        this.$router.push({ name: 'ViewList', query: {data : JSON.stringify({groupCode: value, to: target})} })
         //this.$router.push({ name: "ViewListTmp" });
       }
     },

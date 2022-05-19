@@ -1,11 +1,19 @@
 <template>
   <div>
+    <CCard 
+      class="light_shadow" v-if="isEmpty(stuff_info)"
+    >
+      <CCardBody>
+        <h4 style="text-align:center"><b class="bold main_color">+</b> 버튼을 눌러<br>관리할 물품을 추가하세요.</h4>
+      </CCardBody>
+    </CCard>
     <CCard
-      class="light_shadow"
+      class="light_shadow" v-else
       v-for="(stuff, index) in stuff_info"
       :key="index"
     >
       <CCardBody>
+        <h6>{{index}}</h6>
         <CRow>
           <CCol
             col="4"
@@ -17,7 +25,7 @@
               text-align: center;
             "
           >
-            <div style="width: 100%; height: 100%; overflow: hidden">
+            <div v-if="isEmpty(stuff.file)" class="stf-image">
               <img
                 class="light_shadow"
                 style="border-radius: 20px"
@@ -26,10 +34,13 @@
                 height="80"
               />
             </div>
+            <div v-else class="stf-image" style="{backgroundImage: 'url('+img_src + ')'}">
+
+            </div>
           </CCol>
           <CCol col="8">
             <CRow>
-              <h3 class="bold">{{ stuff.title }}</h3>
+              <h3 class="bold">{{ stuff.name }}</h3>
             </CRow>
             <CRow>
               <p class="mb-1" style="font-size: 20px; margin: auto 0">수량:</p>
@@ -49,6 +60,7 @@
                     border: solid 1px #999;
                     width: 40px;
                   "
+                  @click="modQuantity('decrease', index)"
                   >-</CButton
                 >
                 <p
@@ -61,7 +73,7 @@
                     text-align: center;
                   "
                 >
-                  {{ 1 }}
+                  {{ stuff.quantity }}
                 </p>
                 <CButton
                   class="middle_shadow"
@@ -72,13 +84,14 @@
                     border: solid 1px #999;
                     width: 40px;
                   "
+                  @click="modQuantity('increase', index)"
                   >+</CButton>
               </div>
             </CRow>
           </CCol>
         </CRow>
         <CRow class="pl-4 pr-4">
-          <p style="font-size:18px">{{stuff.subtitle}}</p>
+          <p style="font-size:18px">{{stuff.detail}}</p>
         </CRow>
         <CRow> 
           <CCol col="6">
@@ -110,6 +123,13 @@
   </div>
 </template>
 
+<style scoped>
+.stf-image{
+  width: 100%; height: 100%; overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+</style>
 
 <script>
 import { cilPlus } from "@coreui/icons";
@@ -130,22 +150,20 @@ export default {
       subtitle: "동의대 응용소프트웨어공학 실습준비실입니다.",
 
       stuff_info: [
-        {
-          title: "물품 이름 1",
-          subtitle: "물품1에 대한 간략한 설명입니다.",
-          in_stock: true,
-        },
-        {
-          title: "물품 이름 2",
-          subtitle: "물품2에 대한 간략한 설명입니다.",
-          in_stock: false,
-        },
+        // {
+        //   index: 0,
+        //   title: "aa",
+        //   subtitle: "bb",
+        //   quantity: 1
+        // }
       ],
     };
   },
   created() {
     this.$store.commit("pageStore/set_page", ["isFooterVisible", "false"]);
     this.$store.commit("pageStore/set_page", ["addList", "true"]);
+
+    this.stuff_info = this.$store.state.addListStore.stuffList;
   },
   computed: {
     ...mapGetters(["isNotAuthenticated", "getUserInfo"]),
@@ -223,6 +241,22 @@ export default {
     addNew() {
       this.$router.push({ name: "SetNewStuff" });
     },
+    isEmpty(value){
+      if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
+        return true
+        }else{
+          return false
+        }
+    },
+    modQuantity(mode, idx){
+      switch(mode){
+        case "decrease":
+          if (this.stuff_info[idx].quantity <= 1) break;
+          this.stuff_info[idx].quantity--; break;
+        case "increase":
+          this.stuff_info[idx].quantity++; break;
+      }
+    }
   },
 };
 </script>

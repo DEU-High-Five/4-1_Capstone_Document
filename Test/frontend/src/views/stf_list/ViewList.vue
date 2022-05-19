@@ -98,13 +98,38 @@ export default {
     };
   },
   created() {
+    this.groupCode = JSON.parse(this.$route.query.data).groupCode
+    const pms = JSON.parse(this.$route.query.data).to;
+    this.$store.commit("addListStore/clear_all")
     this.$store.commit("pageStore/set_page", ["isFooterVisible", "true"]);
     this.$store.commit("pageStore/set_page", ["addList", "false"]);
+
+    this.$store.commit("pageStore/set_page", ["groupCode", this.groupCode]);
+
+
+    /* 백엔드 연동 이후 백엔드에서 기관에 대한 사용자의 권한(관리자, 사용자)을 확인해야 함. 그 결과 값을 이 곳에서 받아와야 함. */
     if (JSON.parse(this.$route.query.data).to == 'manage')
       this.$store.commit("pageStore/set_page", ["headerTitle", "나의 관리 기관"]);
     if (JSON.parse(this.$route.query.data).to == 'affiliation')
       this.$store.commit("pageStore/set_page", ["headerTitle", "나의 소속 기관"]);
-    this.groupCode = JSON.parse(this.$route.query.data).groupCode
+
+
+      /* JWT를 이용해 userId 확인 */
+      http
+        .post("주소", {
+          groupCode: this.groupCode
+        })
+        .then((res) => {
+          if (res.data.success == true) {
+            
+          }
+          if (res.data.success == false) {
+            this.$router.replace({ path: "/pages/register_failed" });
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
   },
   computed: {
     ...mapGetters(["isNotAuthenticated", "getUserInfo"]),

@@ -71,6 +71,7 @@ const JoinGroup = () => import('@/views/main/JoinGroup')
 const CheckGroup = () => import('@/views/main/CheckGroup')
 const JoinGroupSuccess = () => import('@/views/main/JoinGroupSuccess')
 const CameraTest = () => import('@/views/main/CameraTest')
+const Settings = () => import('@/views/main/Settings')
 // const ViewList = () => import('@/views/main/ViewList')
 
 
@@ -168,7 +169,7 @@ function configRoutes () {
               path: '/main/MainHome',
               name: 'MainHome',
               component: MainHome,
-              meta: { text: "main_home" },
+              meta: { text: "main_home", page_: 2 },
               //beforeEnter: beforeAuth(true)
             },
             {
@@ -218,6 +219,13 @@ function configRoutes () {
               name: 'CameraTest',
               component: CameraTest,
               meta: { text: "CameraTest" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/Settings',
+              name: 'Settings',
+              component: Settings,
+              meta: { text: "settings", page_: 3 },
               //beforeEnter: beforeAuth(true)
             },
           ]
@@ -658,25 +666,25 @@ function configRoutes () {
           path: 'register2',
           name: 'Register2',
           component: Register2,
-          meta: { page: 3 }
+          meta: { page: 2 }
         },
         {
           path: 'register3',
           name: 'Register3',
           component: Register3,
-          meta: { page: 4 },
+          meta: { page: 2 },
         },
         {
           path: 'register_success',
           name: 'RegisterSuccess',
           component: RegisterSuccess,
-          meta: { page: 5 },
+          meta: { page: 3 },
         },
         {
           path: 'register_failed',
           name: 'RegisterFailed',
           component: RegisterFailed,
-          meta: { page: 5 },
+          meta: { page: 3 },
         }
       ]
     }

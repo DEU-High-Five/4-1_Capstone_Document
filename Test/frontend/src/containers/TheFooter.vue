@@ -36,9 +36,10 @@ export default {
     return {
       selected: 2,
       options: [
-        { id: 1, icon: cilPeople, title: "회원 명단" },
-        { id: 2, icon: cilHome, title: "메인 홈" },
-        { id: 3, icon: cilSettings, title: "설정" },
+        { id: 1, icon: cilPeople, title: "마이 페이지" },
+        { id: 2, icon: cilHome, title: "메인 홈", path: { name: "MainHome" } },
+        { id: 3, icon: cilSettings, title: "설정", path: { name: "Settings" } },
+        //path: { name: "Settings", query: { bookmark: "important" } }
       ],
     };
   },

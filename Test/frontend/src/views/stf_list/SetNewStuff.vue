@@ -2,7 +2,10 @@
   <div>
     <CContainer>
       <CRow>
-        <div
+        <input id="image_getter" class="input-file-square" type="file"  accept="image/gif, image/jpeg, image/png" style="display:none" @change="handleFileChange">
+        <label
+          v-if="img_src == ''"
+          for="image_getter"
           style="
             width: 100px;
             height: 100px;
@@ -16,10 +19,12 @@
                 style="margin: 32px 0 0 32px; color: #a90b0b"
                 :content="$options.icons.plusIcon"
             />
-        </div>
+        </label>
+        <label v-else for="image_getter" class="box dark_shadow" :style="{backgroundImage: 'url('+img_src + ')'}"/>
       </CRow>
       <CRow>
-        <label style="margin: 10px auto 20px auto">+ 버튼을 눌러 썸네일을 등록하세요.</label>
+        <label v-if="img_src == ''" style="margin: 10px auto 20px auto">+ 버튼을 눌러 썸네일을 등록하세요.</label>
+        <label v-else style="margin: 10px auto 20px auto"></label>
       </CRow>
       <CForm>
         <CInput
@@ -28,7 +33,7 @@
           label="물품 이름"
           description="물품의 이름을 입력하세요.(최대 20자)"
           value=""
-          v-model="stuffName"
+          v-model="stuff.name"
           autocomplete="off"
           maxlength="20"
           :is-valid="show_warning_stuff_name"
@@ -41,7 +46,7 @@
           placeholder="제품 사양, 위치, 주의사항 등을 자유롭게 입력해주세요.(최대 200자)"
           horizontal
           rows="9"
-          v-model="stuffDetail"
+          v-model="stuff.detail"
           maxlength="200"
           :is-valid="show_warning_stuff_detail"
           invalid-feedback="세부정보를 입력해주세요."
@@ -65,6 +70,7 @@
         color="primary"
         variant="outline"
         style="width: 92%; height: 45px; font-size: 16px; border-width: 2px;"
+        @click="upload_checker()"
         block
         >목록에 추가</CButton
       >
@@ -112,6 +118,17 @@
   border-color: #d8dbe0;
   box-shadow: none;
 }
+
+.box{
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  background-size: cover;
+  background-position: center;
+  border: solid 2px #a90b0b;
+  border-radius: 10px;
+}
+.input-file-square input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 </style>
 
 <script>
@@ -119,20 +136,26 @@ import { cilPlus } from "@coreui/icons";
 import { mapGetters } from "vuex";
 import http from "../../http";
 export default {
-  name: "GenNewGroup",
+  name: "SetNewStuff",
   icons: {
     plusIcon: cilPlus,
   },
   data() {
     return {
       //userName: this.getUserInfo.userName,
-      userName: "정성주",
-      stuffName: "",
-      stuffDetail: "",
+      stuff: {
+        name: "",
+        detail: "",
+        file: "",
+        quantity: 1,
+      },
       uploadModal: false,
 
-      warning_group_name: false,
-      warning_group_desc: false,
+      warning_stuff_name: false,
+      warning_stuff_desc: false,
+
+      file_name: "",
+      img_src: ""
     };
   },
   created() {},
@@ -151,74 +174,58 @@ export default {
       if (!checker) return;
       return (this.uploadModal = true);
     },
+    handleFileChange(e) {
+      let file = e.target.files[0];
+      let name = file.name;
+      this.file_name = file.name;
+      this.stuff.file = file;
+      if(name.endsWith('.jpg') || name.endsWith('.jpeg') || 
+        name.endsWith('.png') || name.endsWith('.gif'))
+        this.img_src = URL.createObjectURL(file);
+      else
+        this.img_src = ""
+    },
     upload_checker() {
       // 물품 이름
       if (
-        this.stuffName == "" ||
-        this.stuffName.length < 1 ||
-        this.stuffName.length > 20
+        this.stuff.name == "" ||
+        this.stuff.name.length < 1 ||
+        this.stuff.name.length > 20
       ) {
-        this.warning_group_name = true;
+        this.warning_stuff_name = true;
       } else {
-        this.warning_group_name = false;
+        this.warning_stuff_name = false;
       }
 
       // 세부 정보
       if (
-        this.stuffDetail == "" ||
-        this.stuffDetail.length < 1 ||
-        this.stuffDetail.length > 200
+        this.stuff.detail == "" ||
+        this.stuff.detail.length < 1 ||
+        this.stuff.detail.length > 200
       ) {
-        this.warning_group_desc = true;
+        this.warning_stuff_desc = true;
       } else {
-        this.warning_group_desc = false;
+        this.warning_stuff_desc = false;
       }
 
-      if (this.warning_group_name || this.warning_group_desc) {
+      if (this.warning_stuff_name || this.warning_stuff_desc) {
         return false;
       }
       this.uploadModal = true;
       return true;
     },
     show_warning_stuff_name() {
-      if (this.warning_group_name) return false;
+      if (this.warning_stuff_name) return false;
       return "";
     },
     show_warning_stuff_detail() {
-      if (this.warning_group_desc) return false;
+      if (this.warning_stuff_desc) return false;
       return "";
     },
     check_and_send() {
-      let html_content = this.stuffDetail.replaceAll(/(\n|\r\n)/g, "<br>");
-
-      //임시
-      return this.$router.replace({
-        name: "GenGroupSuccess",
-        query: { data: JSON.stringify({ groupCode: "1234-5678" }) },
-      });
-
-      http
-        .post("/matching/upload", {
-          userId: "",
-          userName: this.getUserInfo.univ,
-          stuffName: this.stuffName,
-          stuffDetail: html_content,
-        })
-        .then((res) => {
-          console.log(res.data.success);
-          if (res.data.success == true) {
-            this.$router.replace({
-              name: "GenGroupSuccess",
-              query: { data: JSON.stringify({ num: res.data.target }) },
-            });
-          }
-          if (res.data.success == false) {
-            this.$router.replace({ path: "/pages/register_failed" });
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      this.stuff.detail = this.stuff.detail.replaceAll(/(\n|\r\n)/g, "<br>");
+      this.$store.commit("addListStore/add_new_stuff", this.stuff)
+      this.$router.replace({ name: "AddNewStuff" });
     },
     gotoMain() {
       this.$router.replace({ name: "MainHome" });

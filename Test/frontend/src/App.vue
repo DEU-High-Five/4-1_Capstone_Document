@@ -19,16 +19,20 @@ export default {
   },
   watch: { 
     $route(to, from) {
-      console.log(to.meta.text)
-      
-
-      if(to.meta.text == "matching_home")
+      if(to.meta.text == "view_list")
         this.transitionName = "fade";
       else if(to.meta.page == null || from.meta.page == null){ 
         this.transitionName = "fade"; 
       }else{ 
         this.transitionName = to.meta.page > from.meta.page ? "slide-fade" : "slide-rev-fade"; 
       }
+
+
+      // console.log(to.meta.page_ != undefined && from.meta.page_ != undefined)
+      // if (to.meta.page_ != undefined && from.meta.page_ != undefined){
+      //   this.transitionName = to.meta.page_ > from.meta.page_ ? "slide-fade" : "slide-rev-fade"; 
+      // }
+      // console.log(this.transitionName)
 
 
       // if((from.meta.text === "matching_home") && (to.meta.text === "in_category")){

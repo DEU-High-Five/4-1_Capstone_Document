@@ -45,6 +45,8 @@ const pageStore = {
     isFooterVisible: "",
     headerTitle: "",
     addList: "",
+    groupCode: "",
+    pms: ""
   },
   mutations:{
     set_page(state, [variable, value]) {
@@ -56,14 +58,15 @@ const pageStore = {
 const addListStore = {
   namespaced: true,
   state:{
-    isFooterVisible: true,
-    headerTitle: "",
-    addList: false,
+    stuffList: [],
   },
   mutations:{
-    set_page(state, [variable, value]) {
-      state[variable] = value
+    add_new_stuff(state, value) {
+      state.stuffList.push(value);
     },
+    clear_all(state){
+      state.stuffList.length = 0;
+    }
   }
 }
 
@@ -296,11 +299,12 @@ export default new Vuex.Store({
   modules: {
     userStore: userStore,
     registerStore: registerStore,
+    addListStore: addListStore,
     pageStore: pageStore
   },
   plugins: [
     createPersistedState({
-      paths: ['userStore', 'pageStore']
+      paths: ['userStore', 'pageStore', 'addListStore']
     })
   ]
 })

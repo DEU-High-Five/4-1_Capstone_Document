@@ -13,7 +13,6 @@
       :key="index"
     >
       <CCardBody>
-        <h6>{{index}}</h6>
         <CRow>
           <CCol
             col="4"
@@ -25,7 +24,7 @@
               text-align: center;
             "
           >
-            <div v-if="isEmpty(stuff.file)" class="stf-image">
+            <div v-if="stuff.file == ''" class="stf-image">
               <img
                 class="light_shadow"
                 style="border-radius: 20px"
@@ -34,8 +33,14 @@
                 height="80"
               />
             </div>
-            <div v-else class="stf-image" style="{backgroundImage: 'url('+img_src + ')'}">
-
+            <div v-else class="stf-image">
+              <img
+                class="light_shadow"
+                style="border-radius: 20px"
+                :src="stuff.file"
+                width="80"
+                height="80"
+              />
             </div>
           </CCol>
           <CCol col="8">
@@ -95,10 +100,10 @@
         </CRow>
         <CRow> 
           <CCol col="6">
-            <CButton class="middle_shadow bold" color="primary" style="font-size:16px" block>삭제</CButton>
+            <CButton class="middle_shadow bold" color="primary" style="font-size:16px" @click="deleteStuff(index)" block>삭제</CButton>
           </CCol>
           <CCol col="6">
-            <CButton class="middle_shadow bold" color="success" style="font-size:16px; background-color: #436e5e; border-color: #436e5e;" block>수정</CButton>
+            <CButton class="middle_shadow bold" color="success" style="font-size:16px; background-color: #436e5e; border-color: #436e5e;" @click="ModifyStuff(index)" block>수정</CButton>
           </CCol>
         </CRow>
       </CCardBody>
@@ -146,17 +151,7 @@ export default {
 
       varia: false,
 
-      title: "응용소프트웨어 실습실 #1",
-      subtitle: "동의대 응용소프트웨어공학 실습준비실입니다.",
-
-      stuff_info: [
-        // {
-        //   index: 0,
-        //   title: "aa",
-        //   subtitle: "bb",
-        //   quantity: 1
-        // }
-      ],
+      stuff_info: [],
     };
   },
   created() {
@@ -169,6 +164,9 @@ export default {
     ...mapGetters(["isNotAuthenticated", "getUserInfo"]),
   },
   methods: {
+    refresh_data(){
+      this.stuff_info = this.$store.state.addListStore.stuffList;
+    },
     show_upload_modal() {
       const checker = this.upload_checker();
       if (!checker) return;
@@ -252,10 +250,28 @@ export default {
       switch(mode){
         case "decrease":
           if (this.stuff_info[idx].quantity <= 1) break;
-          this.stuff_info[idx].quantity--; break;
+          //this.stuff_info[idx].quantity--; 
+          this.$store.commit("addListStore/decrease", idx);
+          break;
         case "increase":
-          this.stuff_info[idx].quantity++; break;
+          this.$store.commit("addListStore/increase", idx);
+          //this.stuff_info[idx].quantity++; 
+          break;
       }
+      this.refresh_data();
+    },
+     deleteStuff(idx){
+      this.$store.commit("addListStore/delete", idx);
+      this.refresh_data();
+    },
+    ModifyStuff(idx){
+      this.$router.push({
+        name: "ModifyNewStuff",
+        query: { data: JSON.stringify({ stf_idx: idx }) },
+      });
+    },
+    imgURL(file){
+      return "aa"
     }
   },
 };

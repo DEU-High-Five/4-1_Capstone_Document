@@ -64,8 +64,34 @@ const addListStore = {
     add_new_stuff(state, value) {
       state.stuffList.push(value);
     },
+    replace_new_stuff(state, [pos, value]) {
+      state.stuffList.splice(pos, 1, value)
+    },
     clear_all(state){
       state.stuffList.length = 0;
+    },
+    increase(state, pos){
+      if(Array.isArray(state.stuffList) && state.stuffList.length != 0){
+        if(state.stuffList[pos].quantity != undefined){
+          if(state.stuffList[pos].quantity < 99)
+            state.stuffList[pos].quantity++;
+        }
+      }
+    },
+
+    decrease(state, pos){
+      if(Array.isArray(state.stuffList) && state.stuffList.length != 0){
+        if(state.stuffList[pos].quantity != undefined){
+          if(state.stuffList[pos].quantity >= 2)
+            state.stuffList[pos].quantity--;
+        }
+      }
+    },
+
+    delete(state, pos){
+      if(Array.isArray(state.stuffList) && state.stuffList.length != 0){
+        state.stuffList.splice(pos, 1);
+      }
     }
   }
 }

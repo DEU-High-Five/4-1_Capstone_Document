@@ -72,7 +72,7 @@
         style="width: 92%; height: 45px; font-size: 16px; border-width: 2px;"
         @click="upload_checker()"
         block
-        >목록에 추가</CButton
+        >수정하기</CButton
       >
     </div>
     <CModal
@@ -83,9 +83,9 @@
       size="sm"
       color="white"
     >
-      <h5>추가하시겠습니까?</h5>
+      <h5>수정하시겠습니까?</h5>
       <template #header>
-        <h4 class="modal-title">물품 추가 확인</h4>
+        <h4 class="modal-title">물품 수정 확인</h4>
         <CButtonClose @click="uploadModal = false" class="text-white" />
       </template>
       <template #footer>
@@ -136,7 +136,7 @@ import { cilPlus } from "@coreui/icons";
 import { mapGetters } from "vuex";
 import http from "../../http";
 export default {
-  name: "SetNewStuff",
+  name: "ModifyNewStuff",
   icons: {
     plusIcon: cilPlus,
   },
@@ -155,16 +155,14 @@ export default {
       warning_stuff_desc: false,
 
       file_name: "",
-      img_src: ""
+      img_src: "",
+      stf_idx: -1
     };
   },
-  created() {},
-  // metaInfo: {
-  //   meta: [
-  //     { charset: 'utf-8' },
-  //     { name: 'viewport', content: 'width=device-width, initial-scale=1' }
-  //   ],
-  // },
+  created() {
+      this.stf_idx = JSON.parse(this.$route.query.data).stf_idx;
+      this.stuff = this.$store.state.addListStore.stuffList[this.stf_idx];
+  },
   computed: {
     ...mapGetters(["isNotAuthenticated", "getUserInfo"]),
   },
@@ -259,14 +257,13 @@ export default {
     },
     check_and_send() {
       this.stuff.detail = this.stuff.detail.replaceAll(/(\n|\r\n)/g, "<br>");
-      this.$store.commit("addListStore/add_new_stuff", this.stuff)
+      this.$store.commit("addListStore/replace_new_stuff", [this.stf_idx, this.stuff]);
       //this.$router.replace({ name: "AddNewStuff" });
       this.$router.go(-1);
     },
     gotoMain() {
       this.$router.replace({ name: "MainHome" });
     },
-    
   },
 };
 </script>

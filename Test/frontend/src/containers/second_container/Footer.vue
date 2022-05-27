@@ -40,8 +40,8 @@ export default {
     return {
       selected: 1,
       options: [
-        { id: 1, icon: cilHome, title: "관리 홈" },
-        { id: 2, icon: cilPeople, title: "회원 명단" },
+        { id: 1, icon: cilHome, title: "관리 홈", path: { name: "ViewList"  }},
+        { id: 2, icon: cilPeople, title: "회원 명단", path: { name: "GroupMemberList" }  },
         { id: 3, icon: cilQrCode, title: "QR 코드 촬영" },
         { id: 4, icon: cilGraph, title: "AI 조언" },
       ],

@@ -46,7 +46,7 @@ const pageStore = {
     headerTitle: "",
     addList: "",
     groupCode: "",
-    pms: ""
+    isManager: ""
   },
   mutations:{
     set_page(state, [variable, value]) {

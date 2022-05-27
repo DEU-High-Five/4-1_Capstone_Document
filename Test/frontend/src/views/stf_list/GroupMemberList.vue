@@ -1,57 +1,25 @@
 <template>
   <div>
-    <CCard class="light_shadow" style="border:solid 1px #AAA">
-        <CCardBody>
-            <h2 class="bold">{{ title }}</h2>
-            <h6> {{ subtitle }} </h6>
-        </CCardBody>
+    <CCard v-for="(member, index) in memberList" :key="index">
+        <CCardHeader v-if="member.isManager" style="background-color: #DDD; height: 20px; position: relative;">
+            <h6 style="position: absolute; top: 3px; font-weight: 800;">관리자</h6>
+        </CCardHeader>
+        <CCardBody style="height:120px">
+            <h2>{{member.name}} ({{member.id}})</h2>
+            <p style="margin-bottom: 5px">{{member.desc}}</p>
+            <p>연락처: {{member.phone}}</p>
+      </CCardBody>
+      <CCardFooter>
+          <CRow> 
+          <CCol col="5">
+            <CButton class="middle_shadow bold" color="primary" style="font-size:16px" @click="deleteStuff(index)" block>회원 삭제</CButton>
+          </CCol>
+          <CCol col="7">
+            <CButton class="middle_shadow bold" color="success" style="font-size:16px; background-color: #436e5e; border-color: #436e5e;" @click="ModifyStuff(index)" block>관리자로 지정</CButton>
+          </CCol>
+        </CRow>
+      </CCardFooter>
     </CCard>
-
-    <CCard class="ml-3 mr-3" style="border: none" v-for="(stuff, index) in stuff_info" :key="index">
-      <CRow>
-        <CCol
-          col="4"
-          class="pl-1"
-          style="
-            width: 100px;
-            height: 100px;
-            align-items: center;
-            text-align: center;
-          "
-        >
-          <div style="width: 100%; height: 100%; overflow: hidden">
-            <img
-              class="light_shadow"
-              style="border-radius: 20px"
-              src="../../assets/images/Logo_only_black.svg"
-              width="90"
-              height="90"
-            />
-          </div>
-        </CCol>
-        <CCol col="8">
-          <CRow>
-            <h2>{{stuff.title}}</h2>
-          </CRow>
-          <CRow>
-            <p class="mb-2">{{stuff.subtitle}}</p>
-          </CRow>
-          <CRow>
-            <div v-if="stuff.in_stock" class="style-pill" style="color: #a90b0b">
-              대여 중
-            </div>
-            <div v-else class="style-pill" style="color: #00aa1c">
-              대여 가능
-            </div>
-          </CRow>
-        </CCol>
-      </CRow>
-    </CCard>
-    <div style="height: 80px; width:10px">
-    </div>
-    <div class="btn-floating-bottom" @click="gotoAddStuff">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" height="35"><polygon fill="var(--ci-primary-color, currentColor)" points="440 240 272 240 272 72 240 72 240 240 72 240 72 272 240 272 240 440 272 440 272 272 440 272 440 240" class="ci-primary"></polygon></svg>
-    </div>
   </div>
 </template>
 
@@ -68,33 +36,24 @@ export default {
       groupCode: "",
 
       varia: false,
-      
-      title: "응용소프트웨어 실습실 #1",
-      subtitle: "동의대 응용소프트웨어공학 실습준비실입니다.",
 
-      stuff_info:[
-            {
-                title: "물품 이름 1",
-                subtitle: "물품에 대한 간략한 설명입니다.",
-                in_stock: true,
-            },
-            {
-                title: "물품 이름 2",
-                subtitle: "물품에 대한 간략한 설명입니다.",
-                in_stock: false,
-            },
-            {
-                title: "물품 이름 3",
-                subtitle: "물품에 대한 간략한 설명입니다.",
-                in_stock: true,
-            },
-            {
-                title: "물품 이름 4",
-                subtitle: "물품에 대한 간략한 설명입니다.",
-                in_stock: true,
-            },
-      ]
 
+      memberList: [
+          {
+              id: "아이디",
+              name: "이름",
+              desc: "직급/부서",
+              phone: "010-1111-2222",
+              isManager: true
+          },
+          {
+              id: "아이디",
+              name: "이름",
+              desc: "직급/부서",
+              phone: "010-1111-2222",
+              isManager: false
+          },
+      ],
     };
   },
   created() {

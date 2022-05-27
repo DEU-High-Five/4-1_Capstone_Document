@@ -81,6 +81,8 @@ const ViewList = () => import('@/views/stf_list/ViewList')
 const AddNewStuff = () => import('@/views/stf_list/AddNewStuff')
 const SetNewStuff = () => import('@/views/stf_list/SetNewStuff')
 const ModifyNewStuff = () => import('@/views/stf_list/ModifyNewStuff')
+const GroupMemberList = () => import('@/views/stf_list/GroupMemberList')
+const PrintQRCode = () => import('@/views/stf_list/PrintQRCode')
 
 // Views - Matching
 const MatchingCategory = () => import('@/views/matching/MatchingCategory')
@@ -620,6 +622,20 @@ function configRoutes () {
               name: 'ModifyNewStuff',
               component: ModifyNewStuff,
               meta: { text: "modify_new_stuff", footer: false },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/stf_list/GroupMemberList',
+              name: 'GroupMemberList',
+              component: GroupMemberList,
+              meta: { text: "group_member_list", footer: false },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/stf_list/PrintQRCode',
+              name: 'PrintQRCode',
+              component: PrintQRCode,
+              meta: { text: "print_qr_code", footer: false },
               //beforeEnter: beforeAuth(true)
             },
           ]

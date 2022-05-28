@@ -37,7 +37,7 @@
             <p class="mb-2">{{stuff.subtitle}}</p>
           </CRow>
           <CRow>
-            <div v-if="stuff.in_stock" class="style-pill" style="color: #a90b0b">
+            <div v-if="stuff.available" class="style-pill" style="color: #a90b0b">
               대여 중
             </div>
             <div v-else class="style-pill" style="color: #00aa1c">
@@ -49,7 +49,7 @@
     </CCard>
     <div style="height: 80px; width:10px">
     </div>
-    <div class="btn-floating-bottom" @click="gotoAddStuff">
+    <div v-if="this.$store.state.pageStore.isManager == 'manage'" class="btn-floating-bottom" @click="gotoAddStuff">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" height="35"><polygon fill="var(--ci-primary-color, currentColor)" points="440 240 272 240 272 72 240 72 240 240 72 240 72 272 240 272 240 440 272 440 272 272 440 272 440 240" class="ci-primary"></polygon></svg>
     </div>
   </div>
@@ -76,22 +76,22 @@ export default {
             {
                 title: "물품 이름 1",
                 subtitle: "물품에 대한 간략한 설명입니다.",
-                in_stock: true,
+                available: true,
             },
             {
                 title: "물품 이름 2",
                 subtitle: "물품에 대한 간략한 설명입니다.",
-                in_stock: false,
+                available: false,
             },
             {
                 title: "물품 이름 3",
                 subtitle: "물품에 대한 간략한 설명입니다.",
-                in_stock: true,
+                available: true,
             },
             {
                 title: "물품 이름 4",
                 subtitle: "물품에 대한 간략한 설명입니다.",
-                in_stock: true,
+                available: true,
             },
       ]
 
@@ -123,6 +123,7 @@ export default {
       this.$store.commit("pageStore/set_page", ["headerTitle", "나의 소속 기관"]);
       this.$store.commit("pageStore/set_page", ["isManager", "affiliation"]);
     }
+    console.log(pms)
 
       /* JWT를 이용해 userId 확인 */
       http

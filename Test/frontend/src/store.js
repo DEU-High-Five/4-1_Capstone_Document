@@ -52,6 +52,13 @@ const pageStore = {
     set_page(state, [variable, value]) {
       state[variable] = value
     },
+    clear_all(state){
+      state.isFooterVisible = "";
+      state.headerTitle = "";
+      state.addList = "";
+      state.groupCode = "";
+      state.isManager = "";
+    },
   }
 }
 

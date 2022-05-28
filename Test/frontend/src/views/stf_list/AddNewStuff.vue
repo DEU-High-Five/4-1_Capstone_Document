@@ -123,7 +123,7 @@
     </CCard>
     <div style="width: 10px; height: 100px"></div>
     <div style="position:fixed; width: 100%; height: 80px; bottom: 0; padding-top: 10px;background-color: #ffffff;">
-      <CButton class="bold" color="primary" style=" width: 92%; height: 45px; font-size:16px" block>물품 등록</CButton>
+      <CButton class="bold" color="primary" style=" width: 92%; height: 45px; font-size:16px" @click="check_and_send()" block>물품 등록</CButton>
     </div>
   </div>
 </template>
@@ -208,8 +208,7 @@ export default {
     check_and_send() {
       //임시
       return this.$router.replace({
-        name: "CheckGroup",
-        query: { data: JSON.stringify({ groupCode: this.groupCode }) },
+        name: "PrintQRCode"
       });
 
       http

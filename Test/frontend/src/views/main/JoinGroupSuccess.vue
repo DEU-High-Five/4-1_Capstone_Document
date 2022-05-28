@@ -26,7 +26,7 @@
 import { mapGetters } from "vuex"
 import http from "../../http"
 export default {
-  name: 'GenNewSuccess',
+  name: 'JoinGroupSuccess',
   data () {
     return {
       groupCode: ""

@@ -33,7 +33,7 @@
             >
               <CCard
                 class="main_color_border middle_shadow"
-                @click="gotoViewList(cards.groupCode, 'manage')"
+                @click="gotoViewList(cards.groupCode, cards.state)"
               >
                 <CCardBody class="category_card" style="padding: 1rem">
                   <CCol>
@@ -105,7 +105,7 @@
             >
               <CCard
                 class="main_color_border middle_shadow"
-                @click="gotoViewList(cards.groupCode, 'affiliation')"
+                @click="gotoViewList(cards.groupCode, cards.state)"
               >
                 <CCardBody class="category_card" style="padding: 1rem">
                   <CCol>
@@ -196,11 +196,13 @@ export default {
           groupCode: "00000001",
           title: "응용소프트웨어 실습실 #1",
           subtitle: "동의대 응용소프트웨어공학 실습준비실입니다.",
+          state: "manage"
         },
         {
           groupCode: "00000002",
           title: "(주) 동의 컴퍼니 웹 개발 부서",
           subtitle: "동의컴퍼니 웹 개발 부서입니다.",
+          state: "manage"
         },
       ],
       myAffiliation: [
@@ -208,21 +210,25 @@ export default {
           groupCode: "10000001",
           title: "AI 인공지능학과 실습준비실",
           subtitle: "동의대 인공지능 실습 준비실입니다.",
+          state: "affiliation"
         },
         {
           groupCode: "10000002",
           title: "재즈사랑모임 악기 보관실",
           subtitle: "재즈와 리듬을 사랑하는 사람들 양산의 자랑 재사모",
+          state: "affiliation"
         },
         {
           groupCode: "10000003",
           title: "서울시 청년 인재 양성 프로젝트",
           subtitle: "서울 SW 청년 인재 양성을 위한 프로젝트 그룹입니다.",
+          state: "affiliation"
         },
       ],
     };
   },
   created() {
+    this.$store.commit("pageStore/clear_all")
     /*
     http.post('/홈 경로', {
       userId: this.getUserInfo.userId

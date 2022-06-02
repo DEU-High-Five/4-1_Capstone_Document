@@ -8,6 +8,7 @@
     style="height:70px"
     :options="options"
     v-model="selected"
+    :replace-route="true"
   >
     <template #icon="{ props }"> <CIcon :content="props.icon" size="lg" /> </template>
   </SwipeBottomNavigation>
@@ -16,15 +17,10 @@
 
 <script>
 import {
-  cilCommentSquare,
-  cilEnvelopeClosed,
   cilHome,
   cilSettings,
-  cilTask,
-  cilUser,
-  cilQrCode,
-  cilGraph,
-  cilPeople
+  cilPeople,
+  cilBell,
 } from "@coreui/icons";
 import { SwipeBottomNavigation  } from "bottom-navigation-vue";
 export default {
@@ -36,7 +32,7 @@ export default {
     return {
       selected: 2,
       options: [
-        { id: 1, icon: cilPeople, title: "마이 페이지" },
+        { id: 1, icon: cilBell, title: "수신 알림" },
         { id: 2, icon: cilHome, title: "메인 홈", path: { name: "MainHome" } },
         { id: 3, icon: cilSettings, title: "설정", path: { name: "Settings" } },
         //path: { name: "Settings", query: { bookmark: "important" } }

@@ -78,6 +78,7 @@ const Settings = () => import('@/views/main/Settings')
 
 // Views - Stuff List
 const ViewList = () => import('@/views/stf_list/ViewList')
+const ViewStuff = () => import('@/views/stf_list/ViewStuff')
 const AddNewStuff = () => import('@/views/stf_list/AddNewStuff')
 const SetNewStuff = () => import('@/views/stf_list/SetNewStuff')
 const ModifyNewStuff = () => import('@/views/stf_list/ModifyNewStuff')
@@ -601,6 +602,13 @@ function configRoutes () {
               name: 'ViewList',
               component: ViewList,
               meta: { text: "view_list" },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/stf_list/ViewStuff',
+              name: 'ViewStuff',
+              component: ViewStuff,
+              meta: { text: "view_stuff" },
               //beforeEnter: beforeAuth(true)
             },
             {

@@ -7,7 +7,7 @@
         </CCardBody>
     </CCard>
 
-    <CCard class="ml-3 mr-3" style="border: none" v-for="(stuff, index) in stuff_info" :key="index">
+    <CCard class="ml-3 mr-3" style="border: none" v-for="(stuff, index) in stuff_info" :key="index" @click="gotoViewStuff(stuff.stuffCode)">
       <CRow>
         <CCol
           col="4"
@@ -37,7 +37,7 @@
             <p class="mb-2">{{stuff.subtitle}}</p>
           </CRow>
           <CRow>
-            <div v-if="stuff.available" class="style-pill" style="color: #a90b0b">
+            <div v-if="!stuff.available" class="style-pill" style="color: #a90b0b">
               대여 중
             </div>
             <div v-else class="style-pill" style="color: #00aa1c">
@@ -76,21 +76,25 @@ export default {
             {
                 title: "물품 이름 1",
                 subtitle: "물품에 대한 간략한 설명입니다.",
+                stuffCode: "11112222",
                 available: true,
             },
             {
                 title: "물품 이름 2",
                 subtitle: "물품에 대한 간략한 설명입니다.",
+                stuffCode: "11112223",
                 available: false,
             },
             {
                 title: "물품 이름 3",
                 subtitle: "물품에 대한 간략한 설명입니다.",
+                stuffCode: "11112224",
                 available: true,
             },
             {
                 title: "물품 이름 4",
                 subtitle: "물품에 대한 간략한 설명입니다.",
+                stuffCode: "11112225",
                 available: true,
             },
       ]
@@ -149,7 +153,7 @@ export default {
     
     check_and_send() {
       //임시
-      return this.$router.replace({
+      return this.$router.push({
         name: "CheckGroup",
         query: { data: JSON.stringify({ groupCode: this.groupCode }) },
       });
@@ -174,6 +178,12 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+    gotoViewStuff(code) {
+      return this.$router.push({
+        name: "ViewStuff",
+        query: { data: JSON.stringify({ stuffCode: code }) },
+      });
     },
     gotoAddStuff() {
       this.$router.push({ name: "AddNewStuff" });

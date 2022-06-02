@@ -1,5 +1,9 @@
 <template>
   <div>
+    <CContainer>
+    <CRow>
+      <h1 class="ml-2" style="font-weight: 800">QR 코드 출력</h1>
+    </CRow>
     <CRow>
       <CCol col="6">
         <CSelect
@@ -16,8 +20,8 @@
         />
       </CCol>
     </CRow>
-    <div style="zoom:0.6">
-    <div id="print_area">
+    <div style="zoom:0.3">
+    <div id="print_area" style="border:solid 1px #AAA; padding: 10px 10px 100px 10px; margin-bottom: 300px;">
       <CRow>
         <CCol
           :col="qr_cols"
@@ -35,9 +39,14 @@
       </CRow>
     </div>
     </div>
+    </CContainer>
+    <div>
+      <div style="position:fixed; width: 100%; height: 80px; bottom: 0; padding-top: 10px;background-color: #ffffff;">
+      <CButton class="bold" color="primary" style=" width: 92%; height: 45px; font-size:16px" @click="check_and_send()" block>기관 홈으로 돌아가기</CButton>
+    </div>
+    </div>
     <div class="btn-floating-bottom" @click="print">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" class="c-icon c-icon-custom-size" height="35"><path fill="var(--ci-primary-color, currentColor)" d="M420,128.1V16H92V128.1A80.1,80.1,0,0,0,16,208V400H84V368H48V208a48.054,48.054,0,0,1,48-48H416a48.054,48.054,0,0,1,48,48V368H420v32h76V208A80.1,80.1,0,0,0,420,128.1Zm-32-.1H124V48H388Z" class="ci-primary"></path><rect width="32" height="32" x="396" y="200" fill="var(--ci-primary-color, currentColor)" class="ci-primary"></rect><path fill="var(--ci-primary-color, currentColor)" d="M116,264H76v32h40V496H388V296h40V264H116ZM356,464H148V296H356Z" class="ci-primary"></path></svg>
-        
     </div>
   </div>
 </template>
@@ -125,55 +134,35 @@ export default {
           code:"123123123123123123213",
           name: "QR 샘플3",
         },
+        {
+          code:"123123123123123123213",
+          name: "QR 샘플1",
+        },
+        {
+          code:"123123123123123123213",
+          name: "QR 샘플2",
+        },
+        {
+          code:"123123123123123123213",
+          name: "QR 샘플3",
+        },
+        {
+          code:"123123123123123123213",
+          name: "QR 샘플1",
+        },
+        {
+          code:"123123123123123123213",
+          name: "QR 샘플2",
+        },
+        {
+          code:"123123123123123123213",
+          name: "QR 샘플3",
+        },
       ]
     };
   },
   created() {
-    if (this.$store.state.pageStore.groupcode == "")
-      this.groupCode = JSON.parse(this.$route.query.data).groupCode;
-    else this.groupCode = this.$store.state.pageStore.groupcode;
-
-    let pms = "";
-    if (this.$store.state.pageStore.isManager == "") {
-      pms = JSON.parse(this.$route.query.data).to;
-    } else pms = this.$store.state.pageStore.isManager;
-    this.$store.commit("addListStore/clear_all");
-    this.$store.commit("pageStore/set_page", ["isFooterVisible", "true"]);
-    this.$store.commit("pageStore/set_page", ["addList", "false"]);
-
-    this.$store.commit("pageStore/set_page", ["groupCode", this.groupCode]);
-
-    /* 백엔드 연동 이후 백엔드에서 기관에 대한 사용자의 권한(관리자, 사용자)을 확인해야 함. 그 결과 값을 이 곳에서 받아와야 함. */
-    if (pms == "manage") {
-      this.$store.commit("pageStore/set_page", [
-        "headerTitle",
-        "나의 관리 기관",
-      ]);
-      this.$store.commit("pageStore/set_page", ["isManager", "manage"]);
-    }
-    if (pms == "affiliation") {
-      this.$store.commit("pageStore/set_page", [
-        "headerTitle",
-        "나의 소속 기관",
-      ]);
-      this.$store.commit("pageStore/set_page", ["isManager", "affiliation"]);
-    }
-
-    /* JWT를 이용해 userId 확인 */
-    http
-      .post("주소", {
-        groupCode: this.groupCode,
-      })
-      .then((res) => {
-        if (res.data.success == true) {
-        }
-        if (res.data.success == false) {
-          this.$router.replace({ path: "/pages/register_failed" });
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.$store.commit("pageStore/set_page", ["isFooterVisible", "false"]);
   },
   computed: {
     ...mapGetters(["isNotAuthenticated", "getUserInfo"]),
@@ -189,8 +178,7 @@ export default {
     check_and_send() {
       //임시
       return this.$router.replace({
-        name: "CheckGroup",
-        query: { data: JSON.stringify({ groupCode: this.groupCode }) },
+        name: "ViewList"
       });
 
       http

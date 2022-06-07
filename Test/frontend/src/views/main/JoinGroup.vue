@@ -92,7 +92,7 @@ export default {
   name: 'GenNewGroup',
   data () {
     return {
-      userName: "",
+      userName: "정현수",
       groupCode: ['', ''],
       userDescription: "",
       uploadModal: false,

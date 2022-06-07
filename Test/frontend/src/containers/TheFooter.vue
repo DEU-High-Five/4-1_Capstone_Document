@@ -32,7 +32,7 @@ export default {
     return {
       selected: 2,
       options: [
-        { id: 1, icon: cilBell, title: "수신 알림" },
+        { id: 1, icon: cilBell, title: "알림", path: { name: "MyNotification" } },
         { id: 2, icon: cilHome, title: "메인 홈", path: { name: "MainHome" } },
         { id: 3, icon: cilSettings, title: "설정", path: { name: "Settings" } },
         //path: { name: "Settings", query: { bookmark: "important" } }

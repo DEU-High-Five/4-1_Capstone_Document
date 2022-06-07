@@ -81,7 +81,7 @@ export default {
   data () {
     return {
       //userName: this.getUserInfo.userName,
-      userName: "정성주",
+      userName: "정현수",
       groupName: "",
       groupDescription: "",
       uploadModal: false,

@@ -1,15 +1,15 @@
 <template>
   <div>
-    <CCard v-for="(member, index) in memberList" :key="index">
+    <CCard class="light_shadow" v-for="(member, index) in memberList" :key="index">
         <CCardHeader v-if="member.isManager" style="background-color: #DDD; height: 20px; position: relative;">
             <h6 style="position: absolute; top: 3px; font-weight: 800;">관리자</h6>
         </CCardHeader>
         <CCardBody style="height:120px">
             <h2>{{member.name}} ({{member.id}})</h2>
-            <p style="margin-bottom: 5px">{{member.desc}}</p>
+            <p style="margin-bottom: 5px">직급/부서: {{member.desc}}</p>
             <p>연락처: {{member.phone}}</p>
       </CCardBody>
-      <CCardFooter>
+      <CCardFooter v-if="!member.isManager">
           <CRow> 
           <CCol col="5">
             <CButton class="middle_shadow bold" color="primary" style="font-size:16px" @click="deleteStuff(index)" block>회원 삭제</CButton>
@@ -20,6 +20,7 @@
         </CRow>
       </CCardFooter>
     </CCard>
+    <div style="width:100%; height: 100px;"/>
   </div>
 </template>
 
@@ -40,17 +41,31 @@ export default {
 
       memberList: [
           {
-              id: "아이디",
-              name: "이름",
-              desc: "직급/부서",
-              phone: "010-1111-2222",
+              id: "deuasw001",
+              name: "김김김",
+              desc: "학사 조교",
+              phone: "051-890-0000",
               isManager: true
           },
           {
-              id: "아이디",
-              name: "이름",
-              desc: "직급/부서",
+              id: "faisk328",
+              name: "정현수",
+              desc: "재학생(4학년)",
               phone: "010-1111-2222",
+              isManager: false
+          },
+          {
+              id: "seongan11",
+              name: "김성안",
+              desc: "재학생(4학년)",
+              phone: "010-2222-3333",
+              isManager: false
+          },
+          {
+              id: "mfdo11",
+              name: "황진주",
+              desc: "재학생(4학년)",
+              phone: "010-7777-3333",
               isManager: false
           },
       ],

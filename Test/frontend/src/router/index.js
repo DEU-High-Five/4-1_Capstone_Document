@@ -72,6 +72,7 @@ const CheckGroup = () => import('@/views/main/CheckGroup')
 const JoinGroupSuccess = () => import('@/views/main/JoinGroupSuccess')
 const CameraTest = () => import('@/views/main/CameraTest')
 const Settings = () => import('@/views/main/Settings')
+const MyNotification = () => import('@/views/main/MyNotification')
 // const ViewList = () => import('@/views/main/ViewList')
 
 
@@ -230,6 +231,13 @@ function configRoutes () {
               name: 'Settings',
               component: Settings,
               meta: { text: "settings", page_: 3 },
+              //beforeEnter: beforeAuth(true)
+            },
+            {
+              path: '/main/MyNotification',
+              name: 'MyNotification',
+              component: MyNotification,
+              meta: { text: "MyNotification", page_: 1 },
               //beforeEnter: beforeAuth(true)
             },
           ]

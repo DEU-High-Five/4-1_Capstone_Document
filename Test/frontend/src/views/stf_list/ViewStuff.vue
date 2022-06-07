@@ -36,10 +36,10 @@
             <CButton class="middle_shadow bold" color="info" style="font-size:16px" block>물품 정보 수정</CButton>
         </CRow>
         <CRow class="mt-4">
-          <h6 style="margin: 0 auto">최종 대여자: 김*성</h6>
+          <h6 style="margin: 0 auto">마지막 대여자: {{maskingName(last.name)}}</h6>
         </CRow>
         <CRow class="mt-1">
-          <h6 style="margin: 0 auto">최종 대여 일시: 6시간 전</h6>
+          <h6 style="margin: 0 auto">대여 일시: {{get_time(last.date)}}</h6>
         </CRow>
     </CContainer>
     <CModal
@@ -120,6 +120,10 @@ export default {
         file: "",
         available: true,
       },
+      last:{
+        name: "정현수",
+        date: "2022-06-01T11:20:33"
+      }
     };
   },
   created() {
@@ -159,6 +163,20 @@ export default {
     },
     gotoAddStuff() {
       this.$router.push({ name: "AddNewStuff" });
+    },
+    maskingName(strName) {
+      if (strName.length > 2) {
+          var originName = strName.split('');
+          originName.forEach(function(name, i) {
+            if (i === 0 || i === originName.length - 1) return;
+            originName[i] = '*';
+          });
+          var joinName = originName.join();
+          return joinName.replace(/,/g, '');
+        } else {
+          var pattern = /.$/;
+          return strName.replace(pattern, '*');
+        }
     },
     get_time(time){
       var temp = new Date(time.split('T')[0] + ' ' + time.split('T')[1]);

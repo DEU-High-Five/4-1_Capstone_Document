@@ -23,7 +23,7 @@ export default {
   name: 'GenNewGroup',
   data () {
     return {
-      userName: "정성주",
+      userName: "정현수",
       groupCode: ['', ''],
       userDescription: "",
       uploadModal: false,

@@ -66,6 +66,10 @@ const addListStore = {
   namespaced: true,
   state:{
     stuffList: [],
+    // name
+    // detail
+    // file
+    // quantity
   },
   mutations:{
     add_new_stuff(state, value) {

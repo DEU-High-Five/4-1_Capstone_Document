@@ -146,11 +146,9 @@ export default {
       let html_content = this.groupDescription.replaceAll(/(\n|\r\n)/g, "<br>");
 
       //임시
-      return this.$router.replace({ name: 'GenGroupSuccess', query: {data : JSON.stringify({groupCode:"1234-5678"})} })
+      //return this.$router.replace({ name: 'GenGroupSuccess', query: {data : JSON.stringify({groupCode:"1234-5678"})} })
 
-      http.post('/matching/upload', {
-        userId: "",
-        userName: this.getUserInfo.univ,
+      http.post('/groups/create', {
         groupName: this.groupName,
         groupDescription: html_content,
       }).then((res) => {

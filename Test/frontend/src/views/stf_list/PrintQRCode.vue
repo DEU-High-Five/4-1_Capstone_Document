@@ -31,9 +31,9 @@
         >
         <!-- <vue-qr :text="qrcode.code" :callback="test" qid="testid" :size="qr_size"/> -->
         
-        <!-- <vue-qr :text="qrcode.detail" qid="testid" :size="qr_size"/>
-        <span :style="{fontSize:font_size + 'px', marginLeft:20}">{{qrcode.name}}</span> -->
-        
+        <!-- <vue-qr :text="qrcode.code" qid="testid" :size="qr_size"/>
+        <span :style="{fontSize:font_size + 'px', marginLeft:20}">{{qrcode.name}}</span>
+         -->
         <!-- 임시.. 행 개수 출력 오류는 백엔드 연결 이후 해결될 예정 -->
         <div v-for="(temp, idx) in qrcode.quantity" :key="idx">
         <vue-qr :text="qrcode.detail" qid="testid" :size="qr_size"/>
@@ -93,6 +93,78 @@ export default {
         },
       ],
       stuffQR:[
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플1",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플2",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플3",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플1",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플2",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플3",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플1",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플2",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플3",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플1",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플2",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플3",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플1",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플2",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플3",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플1",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플2",
+        // },
+        // {
+        //   code:"123123123123123123213",
+        //   name: "QR 샘플3",
+        // },
         // {
         //   code:"123123123123123123213",
         //   name: "QR 샘플1",

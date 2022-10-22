@@ -316,27 +316,31 @@ export default {
 
 
         id_overlap_check(){
-          // this.$http.post('/api/users/checkIdOverlap', {
-          //   reg_id: this.reg_id
-          // }).then((res) => {
-          //   if(res.data.success == true){
-          //     this.isIdValid = true;
-          //     //console.log('Available ID')
-          //   }
-          //   if(res.data.success == false){
-          //     this.isIdValid = false;
-          //     this.warning_id = true;
-          //     //console.log('Not available ID')
-          //   }
-          //   this.showIdOverlapModal = true;
-          // }).catch(function (error){
-          //   console.log(error)
-          // })
-          this.isIdValid = true;
-          this.showIdOverlapModal = true;
+          if (!this.reg_id) return;
+          this.$http.post('/api/users/check/ID', {
+            reg_id: this.reg_id
+          }).then((res) => {
+            if(res.data.success == true){
+              this.isIdValid = true;
+              //console.log('Available ID')
+              this.reg_id_temp = this.reg_id;
+            }
+            if(res.data.success == false){
+              this.isIdValid = false;
+              this.warning_id = true;
+              //console.log('Not available ID')
+            }
+            this.showIdOverlapModal = true;
+          }).catch(function (error){
+            console.log(error)
+          })
+
+
+          // this.isIdValid = true;
+          // this.showIdOverlapModal = true;
           
-          // ID 중복확인 체크 영역
-          this.reg_id_temp = this.reg_id;
+          // // ID 중복확인 체크 영역
+          // this.reg_id_temp = this.reg_id;
         },
         pass_check(val){
           if (!this.isPassword1Valid && this.warning_pass){
@@ -401,29 +405,28 @@ export default {
       },
 
       check_and_send(){
-        this.reg_phone_number = this.temp_phone_num[0] + this.temp_phone_num[1] + this.temp_phone_num[2]
         if (this.data_checker()){
-          // const salt = bcrypt.genSaltSync();
-          // const encryptedPass = bcrypt.hashSync(this.reg_pass, salt);
-          // this.$http.post('/api/users/signUp', {
-          //   reg_id: this.reg_id,
-          //   reg_password: encryptedPass,
-          //   reg_name: this.reg_name,
-          //   reg_phone: this.reg_phone_number,
-          //   reg_privacy_agreement: this.isAgreed[0],
-          //   reg_consent_marketing: this.isAgreed[1]
-          // }).then((res) => {
-          //   //console.log(res.data.success)
-          //   if(res.data.success == true){
-          //     this.$router.replace({ path: '/pages/register_success' })
-          //   }
-          //   if(res.data.success == false){
-          //     this.$router.replace({ path: '/pages/register_failed' })
-          //   }
-          // }).catch(function (error){
-          //   console.log(error)
-          // })
-          this.$router.replace({ path: '/pages/register_success' })
+          const salt = bcrypt.genSaltSync();
+          const encryptedPass = bcrypt.hashSync(this.reg_pass, salt);
+          const phone_temp = this.temp_phone_num[0] + this.temp_phone_num[1] + this.temp_phone_num[2]
+          this.$http.post('/api/users/signUp', {
+            reg_id: this.reg_id,
+            reg_password_crpt: encryptedPass,
+            reg_name: this.reg_name,
+            reg_phone: phone_temp,
+            reg_privacy_agreement: this.isAgreed[0],
+            reg_consent_marketing: this.isAgreed[1]
+          }).then((res) => {
+            //console.log(res.data.success)
+            if(res.data.success == true){
+              this.$router.replace({ path: '/pages/register_success' })
+            }
+            if(res.data.success == false){
+              this.$router.replace({ path: '/pages/register_failed' })
+            }
+          }).catch(function (error){
+            console.log(error)
+          })
         }
       },
       sign_up(){
@@ -434,7 +437,7 @@ export default {
           this.$store.commit("registerStore/set_reg", ["reg_id", this.reg_id])
           this.$store.commit("registerStore/set_reg", ["reg_password", encryptedPass])
           this.$store.commit("registerStore/set_reg", ["reg_nickname", this.reg_nickname])
-          this.$store.commit("registerStore/set_reg", ["reg_email", this.reg_email])
+          //this.$store.commit("registerStore/set_reg", ["reg_email", this.reg_email])
           this.$store.commit("registerStore/set_reg", ["reg_verify_question", this.reg_verify_question])
           this.$store.commit("registerStore/set_reg", ["reg_question_answer", this.reg_answer])
           this.$router.replace({ path: '/pages/register3' })

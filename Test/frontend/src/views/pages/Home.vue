@@ -28,7 +28,7 @@
   background-color: #a90b0b;
   margin-left: -10%;
   margin-top: -180px;
-  width: 150vh;
+  width: 300vh;
   height: 400px;
   border-bottom: 50px solid transparent;
 }

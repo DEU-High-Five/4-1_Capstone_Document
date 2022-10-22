@@ -5,6 +5,8 @@ require("dotenv").config();
 var express = require('express');
 var router = express.Router();
 
+var requestIp = require('request-ip');
+
 // JWT 토큰 관련 모듈 불러오기
 const jwt = require("jsonwebtoken");
 // 비밀번호 암호화 관련 모듈 불러오기
@@ -18,14 +20,16 @@ const connection = require('../mariadb');
 // 아래는 post 형식 요청 처리 (req.body 형태로 프론트에서 전달된 파라미터 접근 가능)
 // RESTful API는 아래와 같이 동사가 들어가는 문장은 사용하지 않는 것이 바람직
 // 아래의 경로를 적절한 형태로 바꾸면 '/check' 혹은 '/idOverlap 정도?
-router.post('/checkIdOverlap', function (req, res){
+router.post('/check/ID', function (req, res){
   // console.log( ) 형식으로 콘솔에 데이터 출력 가능 (디버그 시에만 활용)
   console.log('ID Overlap Test')
 
   // connection.query('쿼리문', 쿼리문 결과 데이터(여기서는 row)를 처리할 함수)
   // 아래는 처음에 아무것도 모를 때 짠 코드 실제로는 아래처럼
   // connection.query(q1, [param1, param2], function (err, row){ }) 같이 쓰는게 좋음
-  connection.query('SELECT * FROM USER WHERE USER_ID = "' + req.body.reg_id + '"', function (err, row) {
+  const q1 = 'SELECT * FROM USER WHERE user_id = ?';
+  const param1 = req.body.reg_id;
+  connection.query(q1, param1, function (err, row) {
     // 쿼리 문이 잘못된 경우, err가 반환됨
     if (err) throw err;
 
@@ -72,33 +76,36 @@ router.post('/checkNickOverlap', function (req, res){
 
 router.post('/signUp', function (req, res) {
   const reg_data = {
-    'reg_univ': req.body.reg_univ,
-    'reg_major': req.body.reg_major,
-    'reg_id': req.body.reg_id,
-    'reg_password': req.body.reg_password,
-    'reg_nickname': req.body.reg_nickname,
-    'reg_email' : req.body.reg_email,
-    'reg_verify_question': req.body.reg_verify_question,
-    'reg_question_answer': req.body.reg_question_answer,
-    'reg_interested_major': req.body.reg_interested_major
+    reg_id: req.body.reg_id,
+    reg_password: req.body.reg_password_crpt,
+    reg_name: req.body.reg_name,
+    reg_phone: req.body.reg_phone,
+    reg_privacy_agreement: req.body.reg_privacy_agreement,
+    reg_consent_marketing: req.body.reg_consent_marketing
   };
-  var int_major
-  var sq_ins
-  if(reg_data.reg_interested_major == ""){
-    sq_ins = ""
-    int_major = ""
-  }
-  else{
-    sq_ins = ", USER_INTEREST"
-    int_major = ', "' + reg_data.reg_interested_major + '"'
-  }
-  connection.query('INSERT INTO user(USER_ID, USER_PW, USER_EMAIL, USER_NICKNAME, USER_UNIV, USER_MAJOR, PR_QST_NUM, PR_QST_ANS' + sq_ins + ') VALUES ("' + reg_data.reg_id + '","' + reg_data.reg_password + '","' + reg_data.reg_email + '","' + reg_data.reg_nickname + '","' + reg_data.reg_univ + '","' + reg_data.reg_major + '","' + reg_data.reg_verify_question + '","' + reg_data.reg_question_answer + '"' + int_major +')', reg_data, function (err, row2) {
-    if (err) throw err;
+
+  const q1 = 'INSERT INTO user(user_id, user_pwd, user_name, user_phone, user_mkt_cns) VALUES (?, ?, ?, ?, ?)';
+  const param1 = reg_data.reg_id;
+  const param2 = reg_data.reg_password;
+  const param3 = reg_data.reg_name;
+  const param4 = reg_data.reg_phone;
+  const param5 = reg_data.reg_consent_marketing;
+
+  connection.query(q1, [param1, param2, param3, param4, param5], function (err, row) {
+    if (err){
+      res.json({
+        success: false,
+        message: 'error'
+      })
+      throw err;
+    }
+    else{
+      res.json({
+        success: true,
+        message: 'Sign Up Success!'
+      })
+    }  
   });
-  res.json({
-    success: true,
-    message: 'Sign Up Success!'
-  })
 });
 
 const generateAccessToken=(user) =>{
@@ -127,29 +134,38 @@ router.post('/login', function (req, res) {
   if(!input_checker(req.body.userId)){
     return res.sendStatus(400);
   }
-  connection.query('SELECT * FROM user WHERE USER_ID = "' + req.body.userId + '"', function (err, row) {
+  const q1 = 'SELECT * FROM user WHERE user_id = ?';
+  const param1 = req.body.userId;
+  connection.query(q1, param1, function (err, row) {
     if (err) throw err;
     if (row[0] == undefined){
+      const q_t = 'INSERT INTO login_log(login_scdd, request_ip) VALUES(?, ?)'
+      const param_t1 = false
+      const param_t2 = requestIp.getClientIp(req)
+      connection.query(q_t, [param_t1, param_t2], function (err2, row2) {
+        if(err2) throw err2;
+      });
       res.json({
         success: false,
         message: 'ID does not exist'
       })
       return;
     };
-    const check = bcrypt.compareSync(req.body.userPassword, row[0].USER_PW)
+    const check = bcrypt.compareSync(req.body.userPassword, row[0].user_pwd)
     if (check){
       const user = {
-        Id: row[0].USER_ID,
-        Univ: row[0].USER_UNIV,
-        Major: row[0].USER_MAJOR,
-        Nickname: row[0].USER_NICKNAME,
-        authorized: row[0].AUTHORIZED
+        id: row[0].user_id,
+        name: row[0].user_name,
+        phone: row[0].user_phone
       };
       let accessToken = generateAccessToken(user);
       let refreshToken = generateRefreshToken(user);
-      let query1 = "DELETE FROM token WHERE USER_ID = '" + req.body.userId + "'; "
-      let query2 = "INSERT INTO token(USER_ID, REFRESH_TOKEN) VALUES ('" + req.body.userId + "', '" + refreshToken + "');"
-      connection.query(query1 + query2, function (err2, row2) {
+      let query1 = "DELETE FROM token WHERE user_id = '" + req.body.userId + "'; "
+      let query2 = "INSERT INTO token(user_id, refresh_token) VALUES ('" + req.body.userId + "', '" + refreshToken + "'); "
+      let query3 = 'INSERT INTO login_log(login_scdd, request_ip) VALUES(?, ?);'
+      const param_t1 = true
+      const param_t2 = requestIp.getClientIp(req)
+      connection.query(query1 + query2 + query3, [param_t1, param_t2], function (err2, row2) {
         if (err2) throw err2;
       });
       res.json({
@@ -174,7 +190,7 @@ router.post('/login', function (req, res) {
 router.post('/logout', function (req, res) {
   if (req.body.userId == '')
     return res.sendStatus(400);
-  connection.query("DELETE FROM token WHERE USER_ID = '" + req.body.userId + "'", function (err, row) {
+  connection.query("DELETE FROM token WHERE user_id = '" + req.body.userId + "'", function (err, row) {
     if (err) throw err;
   });
   return res.sendStatus(200);
@@ -201,10 +217,10 @@ const authenticateAccessToken = (req, res, next) => {
 };
 
 function getRefToken(userId, callback) {
-  connection.query("SELECT REFRESH_TOKEN FROM token WHERE USER_ID = '" + userId + "'", function (err, row) {
+  connection.query("SELECT refresh_token FROM token user_id = '" + userId + "'", function (err, row) {
     if (err) callback(err, null);
     else{
-      callback(null, row[0].REFRESH_TOKEN);
+      callback(null, row[0].refresh_token);
     }
   });  
 };
@@ -220,7 +236,7 @@ router.post("/refresh", (req, res) => {
   // jwt 토큰은 "(뭔가 있었음) bdba212ba....." 과 같이
   // 띄어쓰기로 구분되어 있음.
   let accessToken = authHeader && authHeader.split(" ")[1];
-  
+
   if (!userId || !accessToken) return res.status(200).json({ state: false, message: "login required"});
 
 
@@ -231,14 +247,14 @@ router.post("/refresh", (req, res) => {
     process.env.ACCESS_TOKEN_KEY,   // backend 폴더 내 톱니바퀴 모양의 .env 파일 확인 요 
     (error, user) => {
         if (error) {
-          connection.query("SELECT REFRESH_TOKEN FROM token WHERE USER_ID = '" + userId + "'", function (err, row) {
+          connection.query("SELECT refresh_token FROM token WHERE user_id = '" + userId + "'", function (err, row) {
             if (err) throw err;
             if (row[0] == undefined){
               return res.status(200).json({state: false, message: "access and refresh token expired"}); // case 1: acc 만료, ref 토큰 존재 X
             }
             else {
               jwt.verify(
-                row[0].REFRESH_TOKEN,
+                row[0].refresh_token,
                 process.env.REFRESH_TOKEN_KEY,
                 (err, user2) => {
                   if(err) {
@@ -246,11 +262,9 @@ router.post("/refresh", (req, res) => {
                     return res.status(200).json({state: false, message: "refresh token expired"});
                   }
                   const user_d = {
-                    Id: user2.Id,
-                    Univ: user2.Univ,
-                    Major: user2.Major,
-                    Nickname: user2.Nickname,
-                    authorized: user2.authorized
+                    id: user2.id,
+                    name: user2.name,
+                    phone: user2.phone
                   };
                   const newAccToken = generateAccessToken(user_d)
                   return res.status(200).json({   // case 2: ref 토큰 유효, acc만 만료된 경우 acc 토큰 재발급
@@ -265,7 +279,7 @@ router.post("/refresh", (req, res) => {
           });
         }
         else{
-          connection.query("SELECT REFRESH_TOKEN FROM token WHERE USER_ID = '" + userId + "'", function (err, row) {
+          connection.query("SELECT refresh_token FROM token WHERE user_id = '" + userId + "'", function (err, row) {
             if (err) throw err;
             if (row[0] == undefined){
               console.log("asfmkaslf")
@@ -273,7 +287,7 @@ router.post("/refresh", (req, res) => {
                 state: false,
                 message: "refresh token expired"
               })
-              // connection.query("INSERT INTO token(USER_ID, REFRESH_TOKEN) VALUES ('" + userId + "', '" + refreshToken + "')", function (err2, row2) {
+              // connection.query("INSERT INTO token(user_id, REFRESH_TOKEN) VALUES ('" + userId + "', '" + refreshToken + "')", function (err2, row2) {
               //   if (err2) throw err2;
               // });
               // return res.json({
@@ -283,19 +297,17 @@ router.post("/refresh", (req, res) => {
             }
             else {
               jwt.verify(
-                row[0].REFRESH_TOKEN,
+                row[0].refresh_token,
                 process.env.REFRESH_TOKEN_KEY,
                 (err, user2) => {
                   if(err) {
                     const user_d = {
-                      Id: user.Id,
-                      Univ: user.Univ,
-                      Major: user.Major,
-                      Nickname: user.Nickname,
-                      authorized: user.authorized
+                      id: user.id,
+                      name: user.name,
+                      phone: user.phone
                     };
                     const newRefToken = generateAccessToken(user_d)
-                    connection.query("UPDATE token SET REFRESH_TOKEN = '"+ newRefToken +"' WHERE USER_ID = '" + userId + "'", function (err, row) {
+                    connection.query("UPDATE token SET refresh_token = '"+ newRefToken +"' WHERE user_id = '" + userId + "'", function (err, row) {
                       if (err) throw err;
                     });
                     return res.status(200).json({   // case 4: ref 토큰 만료, acc만 유효한 경우 ref 토큰 재발급
@@ -322,7 +334,7 @@ router.post("/refresh", (req, res) => {
   );
 
 
-  // connection.query("SELECT REFRESH_TOKEN FROM token WHERE USER_ID = '" + userId + "'", function (err, row) {
+  // connection.query("SELECT refresh_token FROM token WHERE user_id = '" + userId + "'", function (err, row) {
   //   if (err) throw err;
   //   if (row[0] == undefined){
   //     res.json({

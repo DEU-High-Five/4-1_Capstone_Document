@@ -33,12 +33,12 @@
             >
               <CCard
                 class="main_color_border middle_shadow"
-                @click="gotoViewList(cards.groupCode, cards.state)"
+                @click="gotoViewList(cards.group_code, 'manage')"
               >
                 <CCardBody class="category_card" style="padding: 1rem">
                   <CCol>
-                    <CRow sm="5" v-if="cards.title != ''">
-                      <h4 class="card_title mb-0" v-text="cards.title"></h4>
+                    <CRow sm="5" v-if="cards.group_name != ''">
+                      <h4 class="card_title mb-0" v-text="cards.group_name"></h4>
                     </CRow>
                     <hr
                       style="
@@ -51,7 +51,7 @@
                       <div
                         class="card_sub_title"
                         style="color: black; margin-top: 10px"
-                        v-text="cards.subtitle"
+                        v-text="cards.group_info"
                       ></div>
                     </CRow>
                   </CCol>
@@ -105,12 +105,12 @@
             >
               <CCard
                 class="main_color_border middle_shadow"
-                @click="gotoViewList(cards.groupCode, cards.state)"
+                @click="gotoViewList(cards.group_code, 'affiliation')"
               >
                 <CCardBody class="category_card" style="padding: 1rem">
                   <CCol>
-                    <CRow sm="5" v-if="cards.title != ''">
-                      <h4 class="card_title mb-0" v-text="cards.title"></h4>
+                    <CRow sm="5" v-if="cards.group_name != ''">
+                      <h4 class="card_title mb-0" v-text="cards.group_name"></h4>
                     </CRow>
                     <hr
                       style="
@@ -123,7 +123,7 @@
                       <div
                         class="card_sub_title"
                         style="color: black; margin-top: 10px"
-                        v-text="cards.subtitle"
+                        v-text="cards.group_info"
                       ></div>
                     </CRow>
                   </CCol>
@@ -192,57 +192,53 @@ export default {
   data() {
     return {
       myManagement: [
-        {
-          groupCode: "00000001",
-          title: "응용소프트웨어 실습실 #1",
-          subtitle: "동의대 응용소프트웨어공학 실습준비실입니다.",
-          state: "manage"
-        },
-        {
-          groupCode: "00000002",
-          title: "(주) 동의 컴퍼니 웹 개발 부서",
-          subtitle: "동의컴퍼니 웹 개발 부서입니다.",
-          state: "manage"
-        },
+        // {
+        //   groupCode: "00000001",
+        //   title: "응용소프트웨어 실습실 #1",
+        //   subtitle: "동의대 응용소프트웨어공학 실습준비실입니다.",
+        //   state: "manage"
+        // },
+        // {
+        //   groupCode: "00000002",
+        //   title: "(주) 동의 컴퍼니 웹 개발 부서",
+        //   subtitle: "동의컴퍼니 웹 개발 부서입니다.",
+        //   state: "manage"
+        // },
       ],
       myAffiliation: [
-        {
-          groupCode: "10000001",
-          title: "AI 인공지능학과 실습준비실",
-          subtitle: "동의대 인공지능 실습 준비실입니다.",
-          state: "affiliation"
-        },
-        {
-          groupCode: "10000002",
-          title: "재즈사랑모임 악기 보관실",
-          subtitle: "재즈와 리듬을 사랑하는 사람들 양산의 자랑 재사모",
-          state: "affiliation"
-        },
-        {
-          groupCode: "10000003",
-          title: "서울시 청년 인재 양성 프로젝트",
-          subtitle: "서울 SW 청년 인재 양성을 위한 프로젝트 그룹입니다.",
-          state: "affiliation"
-        },
+        // {
+        //   groupCode: "10000001",
+        //   title: "AI 인공지능학과 실습준비실",
+        //   subtitle: "동의대 인공지능 실습 준비실입니다.",
+        //   state: "affiliation"
+        // },
+        // {
+        //   groupCode: "10000002",
+        //   title: "재즈사랑모임 악기 보관실",
+        //   subtitle: "재즈와 리듬을 사랑하는 사람들 양산의 자랑 재사모",
+        //   state: "affiliation"
+        // },
+        // {
+        //   groupCode: "10000003",
+        //   title: "서울시 청년 인재 양성 프로젝트",
+        //   subtitle: "서울 SW 청년 인재 양성을 위한 프로젝트 그룹입니다.",
+        //   state: "affiliation"
+        // },
       ],
     };
   },
   created() {
     this.$store.commit("pageStore/clear_all")
-    /*
-    http.post('/홈 경로', {
-      userId: this.getUserInfo.userId
-    }).then((res) => {
+    http.get('/groups/home').then((res) => {
       if (res.status === 200) { 
-        this.myMajorData = res.data.posts.myMajor
-        this.myUnivData = res.data.posts.myUniv
-        this.friendsData = res.data.posts.friends
-        this.clubData = res.data.posts.club
+        this.myManagement = res.data.group_list.manage
+        this.myAffiliation = res.data.group_list.affiliation
       }
       }).catch(function (error){
         console.log(error)
-    })
-
+      })
+      
+    /*
     http.post('/users/refresh', {
       userId: this.getUserInfo.userId
     }).then((res) => {

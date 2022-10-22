@@ -10,6 +10,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var matchingRouter = require('./routes/matching');
+var groupsRouter = require('./routes/groups');
 var myPageRouter = require('./routes/myPages');
 var messageRouter = require('./routes/message');
 
@@ -148,6 +149,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/matching', matchingRouter);
+app.use('/api/groups', groupsRouter);
 app.use('/api/myPages', myPageRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/example', exRouter);

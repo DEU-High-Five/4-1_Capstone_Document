@@ -229,7 +229,7 @@ const userStore = {
     loginCheck: function (state) {
       if (state.token.accessToken) { 
         router.push({ 
-          name: 'MatchingCategory' 
+          name: 'MainHome' 
         }).catch(error => { console.log(error) 
         }) 
       } 
@@ -258,32 +258,32 @@ const userStore = {
         userId: payload.userId,
         userPassword: payload.userPassword,
       }
-      // return new Promise((resolve, reject) => {
-      //   http
-      //     .post("/users/login", params)
-      //     .then(response => {
-      //       const { data } = response
-      //       if(data.success){
-      //         context.commit("login", {
-      //           userId: data.user.Id,
-      //           userName: data.user.Name,
-      //           accessToken: data.accessToken,
-      //         })
-      //         resolve(response)
-      //         router.replace({ name: 'Matching' })
-      //       }
-      //       else{
-      //         context.commit("setLoginModal", true)
-      //         resolve(response)
-      //       }
-      //     })
-      //     .catch(error => {
-      //       reject(error)
-      //     })
-      // })
-      router.replace({ 
-        name: 'MainHome' 
+      return new Promise((resolve, reject) => {
+        http
+          .post("/users/login", params)
+          .then(response => {
+            const { data } = response
+            if(data.success){
+              context.commit("login", {
+                userId: data.user.id,
+                userName: data.user.name,
+                accessToken: data.accessToken,
+              })
+              resolve(response)
+              router.replace({ name: 'MainHome' })
+            }
+            else{
+              context.commit("setLoginModal", true)
+              resolve(response)
+            }
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
+      // router.replace({ 
+      //   name: 'MainHome' 
+      // })
     },
 
 

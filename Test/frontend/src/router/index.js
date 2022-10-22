@@ -175,7 +175,7 @@ function configRoutes () {
               name: 'MainHome',
               component: MainHome,
               meta: { text: "main_home", page_: 2 },
-              //beforeEnter: beforeAuth(true)
+              beforeEnter: beforeAuth(true)
             },
             {
               path: '/main/GenNewGroup',
